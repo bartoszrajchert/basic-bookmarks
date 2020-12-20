@@ -1,24 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+import { IconAward } from '@tabler/icons';
 import './App.css';
+
+function ChitChat() {
+  return (
+    <div className="py-8 px-8 max-w-sm mx-auto rounded-xl shadow space-y-2 bg-black-800 cursor-pointer transition-all duration-150 hover:bg-black-700">
+      <IconAward size={24} />
+      <h2>Read everyday</h2>
+      <p>Forbes</p>
+    </div>
+  );
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ChitChat />
     </div>
   );
 }
