@@ -5,13 +5,13 @@
 
 @layer base {
   body {
-    @apply bg-black text-white tracking-normal fill-white;
+    @apply bg-black text-white tracking-normal fill-white mx-40 xl:mx-80 my-16;
   }
   h2 {
     @apply text-xl text-white font-bold;
   }
   p {
-    @apply text-sm text-gray font-normal;
+    @apply text-base text-gray font-normal;
   }
 }
 

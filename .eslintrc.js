@@ -3,6 +3,7 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     "linebreak-style": "off",
+    'object-curly-newline': 'off',
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
