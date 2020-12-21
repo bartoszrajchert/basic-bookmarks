@@ -1,0 +1,27 @@
+.tooltip {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  white-space: nowrap;
+
+  visibility: hidden;
+  opacity: 0;
+}
+
+.tooltip-transition-enter {
+  visibility: hidden;
+  opacity: 0;
+}
+.tooltip-transition-enter-done {
+  visibility: visible;
+  opacity: 1;
+}
+.tooltip-transition-exit {
+  visibility: visible;
+  opacity: 1;
+}
+.tooltip-transition-exit-done {
+  visibility: hidden;
+  opacity: 0;
+}
