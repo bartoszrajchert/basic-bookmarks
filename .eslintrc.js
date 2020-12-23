@@ -4,6 +4,7 @@ module.exports = {
   rules: {
     'linebreak-style': 'off',
     'object-curly-newline': 'off',
+    'operator-linebreak': 'off'
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
