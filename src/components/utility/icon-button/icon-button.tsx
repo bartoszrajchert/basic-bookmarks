@@ -2,7 +2,7 @@ import React from 'react';
 import './icon-button.scss';
 import { TablerIconProps } from '@tabler/icons';
 import Tooltip from '../tooltip';
-import breakpoints from '../../../utilities/breakpoints';
+import breakpoints from '../../../utilities/styles/breakpoints';
 
 type IconButtonProps = {
   text: string;

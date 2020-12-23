@@ -8,7 +8,7 @@ function showAlert(): void {
 }
 
 const Navbar = () => (
-  <nav className="grid grid-flow-col auto-cols-auto">
+  <nav className="mb-40 grid grid-flow-col auto-cols-auto">
     <div className="">
       <IconButton text="Register or Login" icon={<IconUser />} onClick={() => showAlert()} />
     </div>
