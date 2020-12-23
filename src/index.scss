@@ -13,6 +13,10 @@
   p {
     @apply text-base text-gray font-normal;
   }
+  button:focus,
+  input:focus {
+    @apply outline-none;
+  }
 }
 
 @tailwind components;

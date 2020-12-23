@@ -85,5 +85,5 @@ module.exports = {
       margin: ['last']
     },
   },
-  plugins: [],
+  plugins: []
 };
