@@ -24,8 +24,15 @@ class Collection extends Component<CollectionProps, any> {
 
     return (
       <div className="mb-64">
-        <Header />
-        <div className="mt-16 flex">
+        <Header collectionViewType={viewType} onTypeChange={(type) => this.changeViewType(type)} />
+        <div className="mt-16 flex flex-wrap gap-x-40 gap-y-24">
+          <Bookmark type={viewType} />
+          <Bookmark type={viewType} />
+          <Bookmark type={viewType} />
+          <Bookmark type={viewType} />
+          <Bookmark type={viewType} />
+          <Bookmark type={viewType} />
+          <Bookmark type={viewType} />
           <Bookmark type={viewType} />
           <Bookmark type={viewType} />
           <Bookmark type={viewType} />
