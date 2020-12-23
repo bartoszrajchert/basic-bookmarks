@@ -4,47 +4,48 @@ import './tooltip.scss';
 
 type TooltipProps = {
   text: string;
-  breakpoint?: number;
+  breakpoint?: number | null;
   hidden: boolean;
 };
 
-const Tooltip = ({ text, breakpoint = undefined, hidden }: TooltipProps) => {
+const Tooltip = ({ text, breakpoint = null, hidden }: TooltipProps) => {
   const nodeRef = React.useRef(null);
 
-  const [isOverXLBreakpoint, setIsOverXLBreakpoint] = React.useState(true);
+  const [showTooltip, setShowTooltip] = React.useState(
+    breakpoint === null || window.innerWidth < breakpoint,
+  );
+
   React.useEffect(() => {
-    if (typeof breakpoint !== 'undefined') {
+    if (breakpoint !== null) {
       window.addEventListener('resize', () => {
-        if (window.innerWidth > breakpoint) setIsOverXLBreakpoint(true);
-        else setIsOverXLBreakpoint(false);
+        setShowTooltip(window.innerWidth < breakpoint);
       });
     }
   });
 
   return (
     <>
-      {typeof breakpoint !== 'undefined'
-      && isOverXLBreakpoint
-      && window.innerWidth > breakpoint ? null : (
+      {showTooltip ? (
         <CSSTransition
           nodeRef={nodeRef}
           in={!hidden}
-          timeout={{ appear: 300, enter: 300, exit: 0 }}
+          timeout={{ appear: 350, enter: 350, exit: 0 }}
           classNames="tooltip-transition"
         >
-          <div ref={nodeRef} className="tooltip py-4 px-8 rounded-2xl bg-black-600 transition-all">
+          <div
+            ref={nodeRef}
+            className="tooltip py-4 px-8 rounded-2xl bg-black-600 bg-opacity-80 transition-all"
+          >
             <p>{text}</p>
           </div>
         </CSSTransition>
-        )}
+      ) : null}
     </>
   );
 };
 
 Tooltip.defaultProps = {
-  breakpoint: undefined,
+  breakpoint: null,
 };
-
-// https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react
 
 export default Tooltip;
