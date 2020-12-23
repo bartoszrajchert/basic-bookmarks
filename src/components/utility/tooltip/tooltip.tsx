@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import './tooltip.scss';
+import useWindowWidth from '../../../utilities/hooks/use-window-width';
 
 type TooltipProps = {
   text: string;
@@ -9,23 +10,19 @@ type TooltipProps = {
 };
 
 const Tooltip = ({ text, breakpoint = null, hidden }: TooltipProps) => {
-  const nodeRef = React.useRef(null);
-
-  const [showTooltip, setShowTooltip] = React.useState(
+  const nodeRef = useRef(null);
+  const [isTooltipVisible, setIsTooltipVisible] = useState(
     breakpoint === null || window.innerWidth < breakpoint,
   );
+  const windowWidth: number = useWindowWidth(300);
 
-  React.useEffect(() => {
-    if (breakpoint !== null) {
-      window.addEventListener('resize', () => {
-        setShowTooltip(window.innerWidth < breakpoint);
-      });
-    }
-  });
+  useEffect(() => {
+    setIsTooltipVisible(breakpoint === null || windowWidth < breakpoint);
+  }, [breakpoint, windowWidth]);
 
   return (
     <>
-      {showTooltip ? (
+      {isTooltipVisible ? (
         <CSSTransition
           nodeRef={nodeRef}
           in={!hidden}
