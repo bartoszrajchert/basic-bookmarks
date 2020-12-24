@@ -22,7 +22,7 @@ const Header = ({ collectionViewType, onTypeChange }: HeaderProps) => {
               ✨
             </span>
           </div>
-          <div className="ml-12 w-full">
+          <div className="ml-12">
             <HeaderTitle />
           </div>
         </div>

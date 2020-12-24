@@ -14,7 +14,8 @@
     @apply text-base text-gray font-normal;
   }
   button:focus,
-  input:focus {
+  input:focus,
+  h2:focus {
     @apply outline-none;
   }
 }
