@@ -1,0 +1,7 @@
+.add-button {
+  &:hover {
+    .add-button__content {
+      @apply opacity-100;
+    }
+  }
+}
