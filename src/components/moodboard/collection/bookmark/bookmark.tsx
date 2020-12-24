@@ -1,6 +1,6 @@
 import * as React from 'react';
-import facebook from '../../../assets/facebook.png';
-import EViewType from '../../../utilities/enums/collection';
+import facebook from '../../../../assets/facebook.png';
+import EViewType from '../../../../utilities/enums/collection';
 import BookmarkIcon from './bookmark-icon';
 
 type BookmarkProps = {

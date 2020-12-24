@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconLayoutGrid, IconLayoutList, IconMenu2 } from '@tabler/icons';
 import HeaderTitle from './header-title';
-import EViewType from '../../../utilities/enums/collection';
+import EViewType from '../../../../utilities/enums/collection';
 
 type HeaderProps = {
   collectionViewType: EViewType;

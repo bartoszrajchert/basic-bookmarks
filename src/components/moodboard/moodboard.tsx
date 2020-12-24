@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Collection from '../collection';
-import AddButton from '../add-button';
+import Collection from './collection';
+import AddButton from './add-button';
 
 type MoodboardProps = {
   //

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header';
 import Bookmark from './bookmark';
-import EViewType from '../../utilities/enums/collection';
+import EViewType from '../../../utilities/enums/collection';
 
 type CollectionProps = {};
 
