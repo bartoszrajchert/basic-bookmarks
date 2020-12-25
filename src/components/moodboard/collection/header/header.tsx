@@ -1,16 +1,14 @@
 import React from 'react';
 import { IconLayoutGrid, IconLayoutList, IconMenu2 } from '@tabler/icons';
-import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import HeaderTitle from './header-title';
 import EViewType from '../../../../utilities/enums/collection';
 
 type HeaderProps = {
   collectionViewType: EViewType;
   onTypeChange: (type: EViewType) => void;
-  dragHandleProps: DraggableProvidedDragHandleProps | undefined;
 };
 
-const Header = ({ collectionViewType, onTypeChange, dragHandleProps }: HeaderProps) => {
+const Header = ({ collectionViewType, onTypeChange }: HeaderProps) => {
   const nextType: EViewType =
     collectionViewType === EViewType.small ? EViewType.large : EViewType.small;
 
@@ -19,10 +17,7 @@ const Header = ({ collectionViewType, onTypeChange, dragHandleProps }: HeaderPro
       <div className="mb-16 flex justify-between">
         <div className="flex w-full">
           <div className="flex items-center">
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            <div {...dragHandleProps}>
-              <IconMenu2 size={16} />
-            </div>
+            <IconMenu2 size={16} />
             <span className="ml-4 p-4 rounded-5xl bg-black-600" role="img" aria-label="Sparkling">
               ✨
             </span>
