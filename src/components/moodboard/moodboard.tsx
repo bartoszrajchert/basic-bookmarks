@@ -1,3 +1,4 @@
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import React, { Component } from 'react';
 import Collection from './collection';
 import AddButton from './add-button';
@@ -11,27 +12,68 @@ class Moodboard extends Component<MoodboardProps, any> {
     super(props);
 
     this.state = {
-      collectionLength: 2,
+      collections: [
+        {
+          id: 0,
+        },
+        {
+          id: 1,
+        },
+        {
+          id: 2,
+        },
+      ],
     };
   }
 
   addCollection = () => {
-    const { collectionLength } = this.state;
+    const { collections } = this.state;
+
+    collections.push({
+      id: collections[collections.length - 1].id + 1,
+    });
 
     this.setState({
-      collectionLength: collectionLength + 1,
+      collections,
     });
   };
 
-  public render() {
-    const { collectionLength } = this.state;
-    const collections = [];
+  updateCollection = (newCollection: any) => {
+    this.setState({
+      collections: newCollection,
+    });
+  };
 
-    for (let i = 0; i < collectionLength; i++) collections.push(<Collection />);
+  handleOnDragEnd = (result: any) => {
+    if (!result.destination) return;
+
+    const { collections } = this.state;
+
+    const items = Array.from(collections);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    this.updateCollection(items);
+  };
+
+  public render() {
+    const { collections } = this.state;
 
     return (
       <div>
-        {collections}
+        <DragDropContext onDragEnd={(result) => this.handleOnDragEnd(result)}>
+          <Droppable droppableId="moodboard">
+            {(provided) => (
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {collections.map((collection: { id: any }, index: number) => (
+                  <Collection key={collection.id} id={collection.id} index={index} />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
         <AddButton onClick={() => this.addCollection()} />
       </div>
     );
