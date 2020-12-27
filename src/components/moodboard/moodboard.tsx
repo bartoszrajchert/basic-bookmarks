@@ -11,27 +11,35 @@ class Moodboard extends Component<MoodboardProps, any> {
     super(props);
 
     this.state = {
-      collectionLength: 2,
+      collections: [
+        {
+          id: 0,
+        },
+        {
+          id: 1,
+        },
+      ],
     };
   }
 
   addCollection = () => {
-    const { collectionLength } = this.state;
+    const { collections } = this.state;
+
+    collections.push({ id: collections[collections.length - 1].id + 1 });
 
     this.setState({
-      collectionLength: collectionLength + 1,
+      collections,
     });
   };
 
   public render() {
-    const { collectionLength } = this.state;
-    const collections = [];
-
-    for (let i = 0; i < collectionLength; i++) collections.push(<Collection />);
+    const { collections } = this.state;
 
     return (
       <div>
-        {collections}
+        {collections.map((collection: { id: number }) => (
+          <Collection key={collection.id} />
+        ))}
         <AddButton onClick={() => this.addCollection()} />
       </div>
     );
