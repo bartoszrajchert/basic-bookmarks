@@ -2,6 +2,10 @@ import React from 'react';
 import { IconSearch } from '@tabler/icons';
 import './search-bar.scss';
 
+/**
+ * Search bar
+ * @constructor
+ */
 const SearchBar = () => {
   const placeholderText = 'Search your bookmarks...';
   const [inputText, setInputText] = React.useState(placeholderText);
@@ -14,7 +18,7 @@ const SearchBar = () => {
 
   return (
     <div className="search-bar py-12 px-16 bg-black-900 flex flex-row rounded-2xl">
-      <IconSearch size="24" />
+      <IconSearch size="24"/>
       <input
         className={[isPlaceholder ? 'opacity-40' : '', 'pl-8 bg-transparent'].join(' ')}
         value={inputText}
