@@ -5,7 +5,11 @@ module.exports = {
     'linebreak-style': 'off',
     'object-curly-newline': 'off',
     'operator-linebreak': 'off',
-    'no-plusplus': 'off'
+    'no-plusplus': 'off',
+    'implicit-arrow-linebreak': 'off',
+    'function-paren-newline': 'off',
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {

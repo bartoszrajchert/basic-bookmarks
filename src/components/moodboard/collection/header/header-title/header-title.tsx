@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ContentEditable from 'react-contenteditable';
 
 type HeaderTitleProps = {
-  //
+  name: string;
 };
 
 class HeaderTitle extends Component<HeaderTitleProps, any> {
@@ -10,10 +10,11 @@ class HeaderTitle extends Component<HeaderTitleProps, any> {
 
   constructor(props: HeaderTitleProps | Readonly<HeaderTitleProps>) {
     super(props);
+    const { name } = this.props;
 
     this.state = {
-      text: this.placeholderText,
-      placeholder: true,
+      text: name,
+      placeholder: name === '',
     };
   }
 

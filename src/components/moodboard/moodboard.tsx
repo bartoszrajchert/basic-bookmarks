@@ -1,49 +1,53 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import Collection from './collection';
 import AddButton from './add-button';
+import { firestore } from '../../firebase';
+import { ICollectionDocument } from '../../utilities/types/moodboard-types';
+import collectionsState from '../../store/moodboard-store';
 
-type MoodboardProps = {
-  //
+const addCollection = () => {
+  console.log('add');
 };
 
-class Moodboard extends Component<MoodboardProps, any> {
-  constructor(props: MoodboardProps | Readonly<MoodboardProps>) {
-    super(props);
+const Moodboard = () => {
+  const [initialized, setInitialized] = useState(false);
+  const [collections, setCollections] = useRecoilState(collectionsState);
 
-    this.state = {
-      collections: [
-        {
-          id: 0,
-        },
-        {
-          id: 1,
-        },
-      ],
-    };
-  }
+  useEffect(() => {
+    if (initialized) {
+      return;
+    }
 
-  addCollection = () => {
-    const { collections } = this.state;
+    const collectionsRef = firestore.collection('collections');
 
-    collections.push({ id: collections[collections.length - 1].id + 1 });
-
-    this.setState({
-      collections,
+    collectionsRef.get().then(async (collectionsSnapshot) => {
+      collectionsSnapshot.forEach((collection) => {
+        setCollections((oldCollection) => [
+          ...oldCollection,
+          {
+            name: collection.data().name,
+            view: collection.data().view,
+            id: collection.id,
+            bookmarks: collection.data().bookmarks,
+          },
+        ]);
+      });
     });
-  };
 
-  public render() {
-    const { collections } = this.state;
+    setInitialized(true);
+  }, [initialized, setCollections]);
 
-    return (
-      <div>
-        {collections.map((collection: { id: number }) => (
-          <Collection key={collection.id} />
-        ))}
-        <AddButton onClick={() => this.addCollection()} />
-      </div>
-    );
-  }
-}
+  return collections.length === 0 ? (
+    <p className="align-middle text-center">Loading...</p>
+  ) : (
+    <div>
+      {collections.map((collection: ICollectionDocument) => (
+        <Collection key={collection.id} data={collection} />
+      ))}
+      <AddButton onClick={() => addCollection()} />
+    </div>
+  );
+};
 
 export default Moodboard;

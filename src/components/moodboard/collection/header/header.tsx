@@ -6,9 +6,10 @@ import EViewType from '../../../../utilities/enums/collection';
 type HeaderProps = {
   collectionViewType: EViewType;
   onTypeChange: (type: EViewType) => void;
+  name: string;
 };
 
-const Header = ({ collectionViewType, onTypeChange }: HeaderProps) => {
+const Header = ({ collectionViewType, onTypeChange, name }: HeaderProps) => {
   const nextType: EViewType =
     collectionViewType === EViewType.small ? EViewType.large : EViewType.small;
 
@@ -23,7 +24,7 @@ const Header = ({ collectionViewType, onTypeChange }: HeaderProps) => {
             </span>
           </div>
           <div className="ml-12">
-            <HeaderTitle />
+            <HeaderTitle name={name} />
           </div>
         </div>
         <button
