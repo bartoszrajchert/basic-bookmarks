@@ -4,7 +4,6 @@ import Collection from './collection';
 import AddButton from './add-button';
 import { ICollectionDocument } from '../../utilities/types/moodboard-types';
 import collectionsState from '../../store/moodboard-store';
-import useInitializeCollections from '../../utilities/hooks/firebase/use-initialize-colllections';
 import { dbAddCollection, dbGetCollection } from '../../utilities/helpers/firebase-helpers';
 
 const Moodboard = () => {
@@ -14,8 +13,6 @@ const Moodboard = () => {
     dbAddCollection();
     dbGetCollection().then((newCollection) => setCollections(newCollection));
   };
-
-  useInitializeCollections();
 
   return collections.length === 0 ? (
     <p className="align-middle text-center">Loading...</p>
