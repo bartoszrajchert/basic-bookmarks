@@ -14,7 +14,6 @@ const HeaderTitle = ({ name }: HeaderTitleProps) => {
   const changeTextToPlaceholder = (newText: String) => {
     if (newText !== '') return;
 
-    setText(placeholderText);
     setPlaceholder(true);
   };
 
@@ -26,7 +25,7 @@ const HeaderTitle = ({ name }: HeaderTitleProps) => {
   return (
     <ContentEditable
       className={placeholder ? 'opacity-30' : ''}
-      html={text}
+      html={!placeholder ? text : placeholderText}
       onChange={(event) => changeText(event.currentTarget.innerText)}
       onBlur={(event) => changeTextToPlaceholder(event.currentTarget.innerText)}
       onClick={() => (placeholder ? changeText('') : null)}

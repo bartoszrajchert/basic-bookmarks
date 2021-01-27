@@ -1,11 +1,5 @@
-export type ICollectionDocument = {
-  id: string;
-  name: string;
-  view: number;
-  bookmarks: IBookmarkData[];
-};
+import { ICollections } from './firebase-types';
 
-export type IBookmarkData = {
-  name: string;
-  url: string;
+export type ICollectionDocument = ICollections & {
+  id: string;
 };

@@ -1,42 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useRecoilState } from 'recoil';
 import Collection from './collection';
 import AddButton from './add-button';
-import { firestore } from '../../firebase';
 import { ICollectionDocument } from '../../utilities/types/moodboard-types';
 import collectionsState from '../../store/moodboard-store';
-
-const addCollection = () => {
-  console.log('add');
-};
+import useInitializeCollections from '../../utilities/hooks/firebase/use-initialize-colllections';
+import { dbAddCollection, dbGetCollection } from '../../utilities/helpers/firebase-helpers';
 
 const Moodboard = () => {
-  const [initialized, setInitialized] = useState(false);
   const [collections, setCollections] = useRecoilState(collectionsState);
 
-  useEffect(() => {
-    if (initialized) {
-      return;
-    }
+  const addCollection = () => {
+    dbAddCollection();
+    dbGetCollection().then((newCollection) => setCollections(newCollection));
+  };
 
-    const collectionsRef = firestore.collection('collections');
-
-    collectionsRef.get().then(async (collectionsSnapshot) => {
-      collectionsSnapshot.forEach((collection) => {
-        setCollections((oldCollection) => [
-          ...oldCollection,
-          {
-            name: collection.data().name,
-            view: collection.data().view,
-            id: collection.id,
-            bookmarks: collection.data().bookmarks,
-          },
-        ]);
-      });
-    });
-
-    setInitialized(true);
-  }, [initialized, setCollections]);
+  useInitializeCollections();
 
   return collections.length === 0 ? (
     <p className="align-middle text-center">Loading...</p>
