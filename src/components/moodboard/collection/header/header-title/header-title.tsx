@@ -1,53 +1,38 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import ContentEditable from 'react-contenteditable';
 
 type HeaderTitleProps = {
   name: string;
 };
 
-class HeaderTitle extends Component<HeaderTitleProps, any> {
-  placeholderText = 'Enter component name';
+const placeholderText = 'Enter component name';
 
-  constructor(props: HeaderTitleProps | Readonly<HeaderTitleProps>) {
-    super(props);
-    const { name } = this.props;
+const HeaderTitle = ({ name }: HeaderTitleProps) => {
+  const [text, setText] = useState(name);
+  const [placeholder, setPlaceholder] = useState(name === '');
 
-    this.state = {
-      text: name,
-      placeholder: name === '',
-    };
-  }
-
-  changeTextToPlaceholder = (newText: String) => {
+  const changeTextToPlaceholder = (newText: String) => {
     if (newText !== '') return;
 
-    this.setState({
-      text: this.placeholderText,
-      placeholder: true,
-    });
+    setText(placeholderText);
+    setPlaceholder(true);
   };
 
-  changeText = (newText: string) => {
-    this.setState({
-      text: newText,
-      placeholder: false,
-    });
+  const changeText = (newText: string) => {
+    setText(newText);
+    setPlaceholder(false);
   };
 
-  public render() {
-    const { text, placeholder } = this.state;
-
-    return (
-      <ContentEditable
-        className={placeholder ? 'opacity-30' : ''}
-        html={text}
-        onChange={(event) => this.changeText(event.currentTarget.innerText)}
-        onBlur={(event) => this.changeTextToPlaceholder(event.currentTarget.innerText)}
-        onClick={() => (placeholder ? this.changeText('') : null)}
-        tagName="h2"
-      />
-    );
-  }
-}
+  return (
+    <ContentEditable
+      className={placeholder ? 'opacity-30' : ''}
+      html={text}
+      onChange={(event) => changeText(event.currentTarget.innerText)}
+      onBlur={(event) => changeTextToPlaceholder(event.currentTarget.innerText)}
+      onClick={() => (placeholder ? changeText('') : null)}
+      tagName="h2"
+    />
+  );
+};
 
 export default HeaderTitle;
