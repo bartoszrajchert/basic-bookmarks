@@ -54,7 +54,9 @@ export const dbAddCollection = async () => {
 };
 
 export const dbDeleteGroup = async (id: string) =>
-  firestore
-    .collection(dbConstants.mainCollection)
-    .doc(id)
-    .delete();
+  firestore.collection(dbConstants.mainCollection).doc(id).delete();
+
+export const dbUpdateViewOfTheGroup = async (id: string, view: EViewType) =>
+  firestore.collection(dbConstants.mainCollection).doc(id).update({
+    view,
+  });
