@@ -1,5 +1,5 @@
-import { ICollections } from './firebase-types';
+import { IBookmarksGroup } from './firebase-types';
 
-export type ICollectionDocument = ICollections & {
+export type IBookmarksGroupsDoc = IBookmarksGroup & {
   id: string;
 };

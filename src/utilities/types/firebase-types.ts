@@ -1,10 +1,13 @@
-export type ICollections = {
+import EViewType from '../enums/collection';
+
+export type IBookmarksGroup = {
   name: string;
-  view: number;
-  bookmarks: IBookmarkData[];
+  position: number;
+  view: EViewType;
+  bookmarks: IBookmark[];
 };
 
-export type IBookmarkData = {
+export type IBookmark = {
   name: string;
   url: string;
 };

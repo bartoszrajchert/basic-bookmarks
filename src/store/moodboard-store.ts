@@ -1,9 +1,9 @@
 import { atom } from 'recoil';
-import { ICollectionDocument } from '../utilities/types/moodboard-types';
+import { IBookmarksGroupsDoc } from '../utilities/types/moodboard-types';
 
-const collectionsState = atom<ICollectionDocument[]>({
-  key: 'collectionsState',
+const bookmarksGroupsState = atom<IBookmarksGroupsDoc[]>({
+  key: 'bookmarksGroupsState',
   default: [],
 });
 
-export default collectionsState;
+export default bookmarksGroupsState;

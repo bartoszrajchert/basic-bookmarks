@@ -4,7 +4,7 @@ import AddButton from './add-button';
 
 describe('AddButton', () => {
   test('matches snapshot', () => {
-    const wrapper = shallow(<AddButton onClick={() => {}} />);
+    const wrapper = shallow(<AddButton />);
     expect(wrapper).toMatchSnapshot();
   });
 });

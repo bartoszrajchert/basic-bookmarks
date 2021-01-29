@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Header from './header';
 import Bookmark from './bookmark';
 import EViewType from '../../../utilities/enums/collection';
-import { ICollectionDocument } from '../../../utilities/types/moodboard-types';
+import { IBookmarksGroupsDoc } from '../../../utilities/types/moodboard-types';
 
 type CollectionProps = {
-  data: ICollectionDocument;
+  data: IBookmarksGroupsDoc;
 };
 
 const Collection = ({ data }: CollectionProps) => {
@@ -22,6 +22,7 @@ const Collection = ({ data }: CollectionProps) => {
         collectionViewType={viewType}
         onTypeChange={(type) => changeViewType(type)}
         name={name}
+        groupId={data.id}
       />
       <div className="mt-16 flex flex-wrap gap-x-40 gap-y-24">
         <Bookmark type={viewType} />

@@ -1,17 +1,30 @@
 import React from 'react';
-import { IconLayoutGrid, IconLayoutList, IconMenu2 } from '@tabler/icons';
+import { IconLayoutGrid, IconLayoutList, IconMenu2, IconTrash } from '@tabler/icons';
+import { useRecoilState } from 'recoil';
 import HeaderTitle from './header-title';
 import EViewType from '../../../../utilities/enums/collection';
+import { dbDeleteGroup } from '../../../../utilities/helpers/firebase-helpers';
+import bookmarksGroupsState from '../../../../store/moodboard-store';
 
 type HeaderProps = {
   collectionViewType: EViewType;
   onTypeChange: (type: EViewType) => void;
   name: string;
+  groupId: string;
 };
 
-const Header = ({ collectionViewType, onTypeChange, name }: HeaderProps) => {
+const Header = ({ collectionViewType, onTypeChange, name, groupId }: HeaderProps) => {
+  const [bookmarksGroups, setBookmarksGroups] = useRecoilState(bookmarksGroupsState);
+
   const nextType: EViewType =
     collectionViewType === EViewType.small ? EViewType.large : EViewType.small;
+
+  const deleteGroup = async () => {
+    await dbDeleteGroup(groupId);
+
+    const newGroup = bookmarksGroups.filter((bookmark) => bookmark.id !== groupId);
+    setBookmarksGroups(newGroup);
+  };
 
   return (
     <>
@@ -27,6 +40,13 @@ const Header = ({ collectionViewType, onTypeChange, name }: HeaderProps) => {
             <HeaderTitle name={name} />
           </div>
         </div>
+        <button
+          type="button"
+          className="ml-12 flex items-center opacity-20 hover:opacity-100 transition-opacity"
+          onClick={() => deleteGroup()}
+        >
+          <IconTrash size={24} />
+        </button>
         <button
           type="button"
           className="ml-12 flex items-center opacity-20 hover:opacity-100 transition-opacity"

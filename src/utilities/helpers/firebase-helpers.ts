@@ -1,37 +1,60 @@
-import { ICollections } from '../types/firebase-types';
+import { IBookmarksGroup } from '../types/firebase-types';
 import EViewType from '../enums/collection';
 import { firestore } from '../../firebase';
-import { ICollectionDocument } from '../types/moodboard-types';
+import { IBookmarksGroupsDoc } from '../types/moodboard-types';
+
+export const dbConstants = {
+  mainCollection: 'bookmarks-groups',
+};
 
 /**
  * @returns New collection
  */
 export const dbGetCollection = async () => {
-  const collectionsRef = firestore.collection('collections');
-  const newCollection: ICollectionDocument[] = [];
+  const bookmarksGroupsRef = firestore
+    .collection(dbConstants.mainCollection)
+    .orderBy('position', 'asc')
+    .orderBy('name', 'asc');
+  const newGroups: IBookmarksGroupsDoc[] = [];
 
-  await collectionsRef.get().then(async (collectionsSnapshot) => {
-    collectionsSnapshot.forEach((collection) => {
-      newCollection.push({
-        name: collection.data().name,
-        view: collection.data().view,
-        id: collection.id,
-        bookmarks: collection.data().bookmarks,
+  await bookmarksGroupsRef.get().then(async (bookmarksGroupsSnapshot) => {
+    bookmarksGroupsSnapshot.forEach((bookmarksGroupSnapshot) => {
+      newGroups.push({
+        id: bookmarksGroupSnapshot.id,
+        position: bookmarksGroupSnapshot.data().position,
+        name: bookmarksGroupSnapshot.data().name,
+        view: bookmarksGroupSnapshot.data().view,
+        bookmarks: bookmarksGroupSnapshot.data().bookmarks,
       });
     });
   });
 
-  return newCollection;
+  return newGroups;
 };
 
-export const dbAddCollection = () => {
-  const baseData: ICollections = {
+export const dbAddCollection = async () => {
+  const baseData: IBookmarksGroup = {
     name: '',
+    position: 0,
     view: EViewType.small,
     bookmarks: [],
   };
 
-  firestore.collection('collections').add({
-    ...baseData,
-  });
+  return firestore
+    .collection(dbConstants.mainCollection)
+    .add({
+      ...baseData,
+    })
+    .then(() =>
+      dbGetCollection().then((newGroups) => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return newGroups;
+      }),
+    );
 };
+
+export const dbDeleteGroup = async (id: string) =>
+  firestore
+    .collection(dbConstants.mainCollection)
+    .doc(id)
+    .delete();
