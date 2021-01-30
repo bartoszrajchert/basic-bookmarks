@@ -3,7 +3,7 @@ import Header from './header';
 import Bookmark from './bookmark';
 import EViewType from '../../../utilities/enums/collection';
 import { IBookmarksGroupsDoc } from '../../../utilities/types/moodboard-types';
-import { dbUpdateViewOfTheGroup } from '../../../utilities/helpers/firebase-helpers';
+import { dbUpdateGroupView } from '../../../utilities/helpers/firebase-helpers';
 
 type CollectionProps = {
   data: IBookmarksGroupsDoc;
@@ -14,7 +14,7 @@ const Collection = ({ data }: CollectionProps) => {
   const [name] = useState(data.name);
 
   const changeViewType = async (newView: EViewType) => {
-    await dbUpdateViewOfTheGroup(data.id, newView);
+    await dbUpdateGroupView(data.id, newView);
 
     setViewType(newView);
   };

@@ -37,7 +37,7 @@ const Header = ({ collectionViewType, onTypeChange, name, groupId }: HeaderProps
             </span>
           </div>
           <div className="ml-12">
-            <HeaderTitle name={name} />
+            <HeaderTitle groupId={groupId} name={name} />
           </div>
         </div>
         <button

@@ -56,7 +56,12 @@ export const dbAddCollection = async () => {
 export const dbDeleteGroup = async (id: string) =>
   firestore.collection(dbConstants.mainCollection).doc(id).delete();
 
-export const dbUpdateViewOfTheGroup = async (id: string, view: EViewType) =>
+export const dbUpdateGroupView = async (id: string, view: EViewType) =>
   firestore.collection(dbConstants.mainCollection).doc(id).update({
     view,
+  });
+
+export const dbUpdateGroupName = async (id: string, name: string) =>
+  firestore.collection(dbConstants.mainCollection).doc(id).update({
+    name,
   });
