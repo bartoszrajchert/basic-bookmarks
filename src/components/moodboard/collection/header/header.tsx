@@ -4,16 +4,25 @@ import { useRecoilState } from 'recoil';
 import HeaderTitle from './header-title';
 import EViewType from '../../../../utilities/enums/collection';
 import { dbDeleteGroup } from '../../../../utilities/helpers/firebase-helpers';
-import bookmarksGroupsState from '../../../../store/moodboard-store';
+import { bookmarksGroupsState } from '../../../../store/moodboard-store';
 
 type HeaderProps = {
   collectionViewType: EViewType;
   onTypeChange: (type: EViewType) => void;
   name: string;
   groupId: string;
+  draggableAttributes?: any;
+  draggableListeners?: any;
 };
 
-const Header = ({ collectionViewType, onTypeChange, name, groupId }: HeaderProps) => {
+const Header = ({
+  collectionViewType,
+  onTypeChange,
+  name,
+  groupId,
+  draggableAttributes,
+  draggableListeners,
+}: HeaderProps) => {
   const [bookmarksGroups, setBookmarksGroups] = useRecoilState(bookmarksGroupsState);
 
   const nextType: EViewType =
@@ -31,7 +40,8 @@ const Header = ({ collectionViewType, onTypeChange, name, groupId }: HeaderProps
       <div className="mb-16 flex justify-between">
         <div className="flex w-full">
           <div className="flex items-center">
-            <IconMenu2 size={16} />
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+            <IconMenu2 size={16} {...draggableAttributes} {...draggableListeners} />
             <span className="ml-4 p-4 rounded-5xl bg-black-600" role="img" aria-label="Sparkling">
               ✨
             </span>

@@ -3,7 +3,7 @@ import { IconSquarePlus } from '@tabler/icons';
 import './add-button.scss';
 import { useSetRecoilState } from 'recoil';
 import { dbAddCollection } from '../../utilities/helpers/firebase-helpers';
-import bookmarksGroupsState from '../../store/moodboard-store';
+import { bookmarksGroupsState } from '../../store/moodboard-store';
 
 const AddButton = () => {
   const setBookmarksGroups = useSetRecoilState(bookmarksGroupsState);

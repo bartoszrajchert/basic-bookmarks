@@ -4,6 +4,10 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.0.0",
+    "@dnd-kit/core": "^1.0.1",
+    "@dnd-kit/modifiers": "^1.0.1",
+    "@dnd-kit/sortable": "^1.0.1",
+    "@dnd-kit/utilities": "^1.0.1",
     "@tabler/icons": "^1.38.1",
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "@testing-library/jest-dom": "^5.11.6",

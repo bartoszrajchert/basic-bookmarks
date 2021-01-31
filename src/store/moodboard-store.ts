@@ -1,9 +1,15 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 import { IBookmarksGroupsDoc } from '../utilities/types/moodboard-types';
 
-const bookmarksGroupsState = atom<IBookmarksGroupsDoc[]>({
+export const bookmarksGroupsState = atom<IBookmarksGroupsDoc[]>({
   key: 'bookmarksGroupsState',
   default: [],
 });
 
-export default bookmarksGroupsState;
+export const idsOfBookmarksGroupState = selector({
+  key: 'idsOfBookmarksGroupsState',
+  get: ({ get }) => {
+    const groups = get(bookmarksGroupsState);
+    return groups.map((group) => group.id);
+  },
+});

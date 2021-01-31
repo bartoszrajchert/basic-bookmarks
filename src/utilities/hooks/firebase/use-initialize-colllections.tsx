@@ -1,7 +1,7 @@
 import { useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
-import bookmarksGroupsState from '../../../store/moodboard-store';
 import { dbGetCollection } from '../../helpers/firebase-helpers';
+import { bookmarksGroupsState } from '../../../store/moodboard-store';
 
 const useInitializeCollections = () => {
   const [initialized, setInitialized] = useState(false);
