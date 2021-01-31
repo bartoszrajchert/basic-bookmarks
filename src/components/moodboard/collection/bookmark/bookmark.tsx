@@ -5,9 +5,12 @@ import BookmarkIcon from './bookmark-icon';
 
 type BookmarkProps = {
   type: EViewType;
+  attributes?: any;
+  listeners?: any;
+  className?: string;
 };
 
-const Bookmark = ({ type }: BookmarkProps) => {
+const Bookmark = ({ type, attributes, listeners, className }: BookmarkProps) => {
   const largeBookmark = (
     <div
       className="bg-black-800 rounded-base p-12 flex items-center cursor-pointer"
@@ -29,7 +32,17 @@ const Bookmark = ({ type }: BookmarkProps) => {
     </div>
   );
 
-  return type === EViewType.large ? largeBookmark : smallBookmark;
+  return (
+    <div {...attributes} {...listeners} className={className}>
+      {type === EViewType.large ? largeBookmark : smallBookmark}
+    </div>
+  );
+};
+
+Bookmark.defaultProps = {
+  attributes: [],
+  listeners: [],
+  className: '',
 };
 
 export default Bookmark;

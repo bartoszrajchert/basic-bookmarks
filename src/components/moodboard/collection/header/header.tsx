@@ -40,7 +40,6 @@ const Header = ({
       <div className="mb-16 flex justify-between">
         <div className="flex w-full">
           <div className="flex items-center">
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <IconMenu2 size={16} {...draggableAttributes} {...draggableListeners} />
             <span className="ml-4 p-4 rounded-5xl bg-black-600" role="img" aria-label="Sparkling">
               ✨
@@ -72,6 +71,11 @@ const Header = ({
       <hr className="bg-white opacity-10" />
     </>
   );
+};
+
+Header.defaultProps = {
+  draggableAttributes: [],
+  draggableListeners: [],
 };
 
 export default Header;
