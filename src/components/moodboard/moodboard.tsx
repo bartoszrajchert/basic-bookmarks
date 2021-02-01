@@ -45,12 +45,15 @@ const Moodboard = () => {
       <SortableContext items={collectionsId} strategy={verticalListSortingStrategy}>
         {collectionsId.map((id, index) => (
           <SortableItem key={id} id={id}>
-            <Collection data={collections[index]} className={activeId === id ? 'opacity-0' : ''} />
+            <Collection
+              data={collections[index]}
+              className={activeId === id ? 'opacity-40' : ''}
+              hideBookmarks={activeId === id}
+            />
           </SortableItem>
         ))}
       </SortableContext>
       <DragOverlay
-        style={{ backgroundColor: 'red', color: 'red' }}
         dropAnimation={{
           duration: 500,
           easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
@@ -58,7 +61,7 @@ const Moodboard = () => {
       >
         {activeId || typeof getActiveGroup !== 'undefined' ? (
           /* @ts-ignore */
-          <Collection data={getActiveGroup} />
+          <Collection data={getActiveGroup} hideBookmarks />
         ) : null}
       </DragOverlay>
     </DndContext>

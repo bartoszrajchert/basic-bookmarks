@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconLayoutGrid, IconLayoutList, IconMenu2, IconTrash } from '@tabler/icons';
+import { IconEye, IconLayoutGrid, IconLayoutList, IconMenu2, IconTrash } from '@tabler/icons';
 import { useRecoilState } from 'recoil';
 import HeaderTitle from './header-title';
 import EViewType from '../../../../utilities/enums/collection';
@@ -9,6 +9,7 @@ import { bookmarksGroupsState } from '../../../../store/moodboard-store';
 type HeaderProps = {
   collectionViewType: EViewType;
   onTypeChange: (type: EViewType) => void;
+  toggleBookmarks: () => void;
   name: string;
   groupId: string;
   draggableAttributes?: any;
@@ -18,6 +19,7 @@ type HeaderProps = {
 const Header = ({
   collectionViewType,
   onTypeChange,
+  toggleBookmarks,
   name,
   groupId,
   draggableAttributes,
@@ -49,6 +51,13 @@ const Header = ({
             <HeaderTitle groupId={groupId} name={name} />
           </div>
         </div>
+        <button
+          type="button"
+          className="ml-12 flex items-center opacity-20 hover:opacity-100 transition-opacity"
+          onClick={() => toggleBookmarks()}
+        >
+          <IconEye size={24} />
+        </button>
         <button
           type="button"
           className="ml-12 flex items-center opacity-20 hover:opacity-100 transition-opacity"

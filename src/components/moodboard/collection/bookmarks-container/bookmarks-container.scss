@@ -1,0 +1,20 @@
+.bookmarks-transition-enter {
+  visibility: visible;
+  height: 98px;
+  opacity: 1;
+}
+.bookmarks-transition-enter-done {
+  visibility: hidden;
+  height: 0;
+  opacity: 0;
+}
+.bookmarks-transition-exit {
+  visibility: hidden;
+  height: 0;
+  opacity: 0;
+}
+.bookmarks-transition-exit-done {
+  visibility: visible;
+  height: 98px;
+  opacity: 1;
+}
