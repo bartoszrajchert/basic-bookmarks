@@ -1,16 +1,22 @@
 import * as React from 'react';
 import { IconSquarePlus } from '@tabler/icons';
 import './add-button.scss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { dbAddCollection } from '../../utilities/helpers/firebase-helpers';
 import { addGroupAction } from '../../store/actions';
+import { IBookmarksGroupsDoc } from '../../utilities/types/moodboard-types';
 
 const AddButton = () => {
   const dispatch = useDispatch();
+  const groups = useSelector<{ groups: IBookmarksGroupsDoc[] }, IBookmarksGroupsDoc[]>(
+    (state) => state.groups,
+  );
 
   const addCollection = () => {
-    dbAddCollection(uuidv4()).then((newGroup) => dispatch(addGroupAction(newGroup)));
+    dbAddCollection(uuidv4(), groups[0].position + 1).then((newGroup) =>
+      dispatch(addGroupAction(newGroup)),
+    );
   };
 
   return (

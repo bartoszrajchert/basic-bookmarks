@@ -8,17 +8,17 @@ export const dbConstants = {
   mainCollection: 'bookmarks-groups',
 };
 
-export const baseData: IBookmarksGroup = {
+export const baseData = (position: number): IBookmarksGroup => ({
   name: '',
-  position: 0,
+  position,
   view: EViewType.small,
   visible: true,
   bookmarks: [],
-};
+});
 
-const createGroupDoc = (id: string): IBookmarksGroupsDoc => ({
+const createGroupDoc = (id: string, position: number): IBookmarksGroupsDoc => ({
   id,
-  ...baseData,
+  ...baseData(position),
 });
 
 function uuidValidateV4(uuid: string) {
@@ -31,7 +31,7 @@ function uuidValidateV4(uuid: string) {
 export const dbGetCollection = async (): Promise<IBookmarksGroupsDoc[]> => {
   const bookmarksGroupsRef = firestore
     .collection(dbConstants.mainCollection)
-    .orderBy('position', 'asc')
+    .orderBy('position', 'desc')
     .orderBy('name', 'asc');
   const newGroups: IBookmarksGroupsDoc[] = [];
 
@@ -51,7 +51,10 @@ export const dbGetCollection = async (): Promise<IBookmarksGroupsDoc[]> => {
   return newGroups;
 };
 
-export const dbAddCollection = async (id: string): Promise<IBookmarksGroupsDoc> => {
+export const dbAddCollection = async (
+  id: string,
+  position: number,
+): Promise<IBookmarksGroupsDoc> => {
   if (!uuidValidateV4(id)) {
     throw Error('Do not change id!');
   }
@@ -60,11 +63,11 @@ export const dbAddCollection = async (id: string): Promise<IBookmarksGroupsDoc> 
     .collection(dbConstants.mainCollection)
     .doc(id)
     .set({
-      ...baseData,
+      ...baseData(position),
     })
     .then(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      return createGroupDoc(id);
+      return createGroupDoc(id, position);
     });
 };
 

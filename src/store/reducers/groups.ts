@@ -13,7 +13,7 @@ const groups = (state: IBookmarksGroupsDoc[] = [], action: Action) => {
     case EGroupsActions.SWAP_GROUPS:
       return arrayMove([...state], action.payload.oldIndex, action.payload.newIndex);
     case EGroupsActions.ADD_GROUP:
-      return [...state, action.payload.newGroup];
+      return [action.payload.newGroup, ...state];
     case EGroupsActions.UPDATE_GROUPS:
       return [...action.payload.newGroups];
     case EGroupsActions.DELETE_GROUP:
