@@ -1,38 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Header from './header';
 import EViewType from '../../../utilities/enums/collection';
 import { IBookmarksGroupsDoc } from '../../../utilities/types/moodboard-types';
-import { dbUpdateGroupView } from '../../../utilities/helpers/firebase-helpers';
+import {
+  dbUpdateBookmarksVisibility,
+  dbUpdateGroupView,
+} from '../../../utilities/helpers/firebase-helpers';
 import BookmarksContainer from './bookmarks-container';
+import { changeGroupViewTypeAction, changeGroupVisibility } from '../../../store/actions';
 
 type CollectionProps = {
   data: IBookmarksGroupsDoc;
-  hideBookmarks?: boolean;
   attributes?: any;
   listeners?: any;
   className?: string;
 };
 
-const Collection = ({ data, hideBookmarks, attributes, listeners, className }: CollectionProps) => {
+const Collection = ({ data, attributes, listeners, className }: CollectionProps) => {
   const [viewType, setViewType] = useState(data.view);
-  const [hideBookmarksState, setHideBookmarksState] = useState(hideBookmarks);
+  const [hideBookmarksState, setHideBookmarksState] = useState(!data.visible);
   const [name] = useState(data.name);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    setHideBookmarksState(hideBookmarksState);
-  }, [hideBookmarks, hideBookmarksState]);
-
+  // TODO: refactor this
   const changeViewType = async (newView: EViewType) => {
     await dbUpdateGroupView(data.id, newView);
+    dispatch(changeGroupViewTypeAction(data.id, newView));
     setViewType(newView);
   };
 
-  const toggleBookmarks = () => {
+  // TODO: refactor this
+  const toggleBookmarks = async () => {
+    await dbUpdateBookmarksVisibility(data.id, hideBookmarksState);
+    dispatch(changeGroupVisibility(data.id, hideBookmarksState));
     setHideBookmarksState(!hideBookmarksState);
   };
 
   return (
-    <div className={['mb-64', className].join(' ')}>
+    <div id={data.id} className={['mb-64', className].join(' ')}>
       <Header
         collectionViewType={viewType}
         onTypeChange={(type) => changeViewType(type)}
@@ -42,13 +48,12 @@ const Collection = ({ data, hideBookmarks, attributes, listeners, className }: C
         draggableAttributes={attributes}
         draggableListeners={listeners}
       />
-      <BookmarksContainer hideBookmarks={hideBookmarks || hideBookmarksState} viewType={viewType} />
+      <BookmarksContainer hideBookmarks={hideBookmarksState} viewType={viewType} />
     </div>
   );
 };
 
 Collection.defaultProps = {
-  hideBookmarks: false,
   attributes: [],
   listeners: [],
   className: '',

@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { IconSquarePlus } from '@tabler/icons';
 import './add-button.scss';
-import { useSetRecoilState } from 'recoil';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { dbAddCollection } from '../../utilities/helpers/firebase-helpers';
-import { bookmarksGroupsState } from '../../store/moodboard-store';
+import { addGroupAction } from '../../store/actions';
 
 const AddButton = () => {
-  const setBookmarksGroups = useSetRecoilState(bookmarksGroupsState);
+  const dispatch = useDispatch();
 
   const addCollection = () => {
-    dbAddCollection().then((newGroups) => setBookmarksGroups(newGroups));
+    dbAddCollection(uuidv4()).then((newGroup) => dispatch(addGroupAction(newGroup)));
   };
 
   return (

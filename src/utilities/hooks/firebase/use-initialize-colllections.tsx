@@ -1,21 +1,21 @@
-import { useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { dbGetCollection } from '../../helpers/firebase-helpers';
-import { bookmarksGroupsState } from '../../../store/moodboard-store';
+import { groupsFetchedAction } from '../../../store/actions';
 
 const useInitializeCollections = () => {
   const [initialized, setInitialized] = useState(false);
-  const setBookmarksGroups = useSetRecoilState(bookmarksGroupsState);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (initialized) return;
 
     dbGetCollection().then((newGroups) => {
-      setBookmarksGroups(newGroups);
+      dispatch(groupsFetchedAction(newGroups));
     });
 
     setInitialized(true);
-  }, [initialized, setBookmarksGroups]);
+  }, [dispatch, initialized]);
 };
 
 export default useInitializeCollections;

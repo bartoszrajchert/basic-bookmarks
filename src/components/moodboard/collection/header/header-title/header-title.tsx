@@ -1,7 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import ContentEditable from 'react-contenteditable';
+import { useDispatch } from 'react-redux';
 import { dbUpdateGroupName } from '../../../../../utilities/helpers/firebase-helpers';
 import debounce from '../../../../../utilities/helpers/debounce';
+import { changeGroupName } from '../../../../../store/actions';
 
 type HeaderTitleProps = {
   groupId: string;
@@ -11,6 +13,7 @@ type HeaderTitleProps = {
 const placeholderText = 'Enter component name';
 
 const HeaderTitle = ({ groupId, name }: HeaderTitleProps) => {
+  const dispatch = useDispatch();
   const [text, setText] = useState(name);
   const [placeholder, setPlaceholder] = useState(name === '');
 
@@ -20,9 +23,13 @@ const HeaderTitle = ({ groupId, name }: HeaderTitleProps) => {
     setPlaceholder(true);
   };
 
+  // TODO: refactor this
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const callDbToUpdateTitle = useCallback(
-    debounce((newText) => dbUpdateGroupName(groupId, newText), 1000),
+    debounce(async (newText) => {
+      await dbUpdateGroupName(groupId, newText);
+      dispatch(changeGroupName(groupId, newText));
+    }, 1000),
     [],
   );
 

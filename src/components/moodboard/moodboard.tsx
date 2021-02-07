@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
 import { DndContext, closestCenter, DragOverlay } from '@dnd-kit/core';
-import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { useDispatch, useSelector } from 'react-redux';
 import Collection from './collection';
-import { bookmarksGroupsState, idsOfBookmarksGroupState } from '../../store/moodboard-store';
 import SortableItem from '../utility/dnd-kit/sortable-item';
+import { IBookmarksGroupsDoc } from '../../utilities/types/moodboard-types';
+import { swapGroupsAction } from '../../store/actions';
 
 const Moodboard = () => {
-  const [collections, setCollections] = useRecoilState(bookmarksGroupsState);
+  const groups = useSelector<{ groups: IBookmarksGroupsDoc[] }, IBookmarksGroupsDoc[]>(
+    (state) => state.groups,
+  );
+  const dispatch = useDispatch();
+
   const [activeId, setActiveId] = useState('');
-  const collectionsId = useRecoilValue(idsOfBookmarksGroupState);
 
   const handleDragStart = (event: { active: any; over: any }) => {
     setActiveId(event.active.id);
@@ -22,18 +26,17 @@ const Moodboard = () => {
     setActiveId('');
 
     if (active.id !== over.id) {
-      setCollections((items) => {
-        const oldIndex = items.findIndex((group) => group.id === active.id);
-        const newIndex = items.findIndex((group) => group.id === over.id);
+      const oldIndex = groups.findIndex((groupNode) => groupNode.id === active.id);
+      const newIndex = groups.findIndex((groupNode) => groupNode.id === over.id);
 
-        return arrayMove(items, oldIndex, newIndex);
-      });
+      dispatch(swapGroupsAction(oldIndex, newIndex));
     }
   };
 
-  const getActiveGroup = collections.find((collection) => collection.id === activeId);
+  const getActiveGroup = groups.find((group) => group.id === activeId);
+  const groupsIds = groups.map((group) => group.id);
 
-  return collections.length === 0 ? (
+  return groups.length === 0 ? (
     <p className="align-middle text-center">Loading...</p>
   ) : (
     <DndContext
@@ -42,14 +45,10 @@ const Moodboard = () => {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <SortableContext items={collectionsId} strategy={verticalListSortingStrategy}>
-        {collectionsId.map((id, index) => (
+      <SortableContext items={groupsIds} strategy={verticalListSortingStrategy}>
+        {groupsIds.map((id, index) => (
           <SortableItem key={id} id={id}>
-            <Collection
-              data={collections[index]}
-              className={activeId === id ? 'opacity-40' : ''}
-              hideBookmarks={activeId === id}
-            />
+            <Collection data={groups[index]} className={activeId === id ? 'opacity-40' : ''} />
           </SortableItem>
         ))}
       </SortableContext>
@@ -61,7 +60,7 @@ const Moodboard = () => {
       >
         {activeId || typeof getActiveGroup !== 'undefined' ? (
           /* @ts-ignore */
-          <Collection data={getActiveGroup} hideBookmarks />
+          <Collection data={getActiveGroup} />
         ) : null}
       </DragOverlay>
     </DndContext>

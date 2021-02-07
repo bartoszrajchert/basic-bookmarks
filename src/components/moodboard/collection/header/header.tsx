@@ -1,10 +1,10 @@
 import React from 'react';
 import { IconEye, IconLayoutGrid, IconLayoutList, IconMenu2, IconTrash } from '@tabler/icons';
-import { useRecoilState } from 'recoil';
+import { useDispatch } from 'react-redux';
 import HeaderTitle from './header-title';
 import EViewType from '../../../../utilities/enums/collection';
 import { dbDeleteGroup } from '../../../../utilities/helpers/firebase-helpers';
-import { bookmarksGroupsState } from '../../../../store/moodboard-store';
+import { deleteGroupAction } from '../../../../store/actions';
 
 type HeaderProps = {
   collectionViewType: EViewType;
@@ -25,16 +25,14 @@ const Header = ({
   draggableAttributes,
   draggableListeners,
 }: HeaderProps) => {
-  const [bookmarksGroups, setBookmarksGroups] = useRecoilState(bookmarksGroupsState);
+  const dispatch = useDispatch();
 
   const nextType: EViewType =
     collectionViewType === EViewType.small ? EViewType.large : EViewType.small;
 
   const deleteGroup = async () => {
     await dbDeleteGroup(groupId);
-
-    const newGroup = bookmarksGroups.filter((bookmark) => bookmark.id !== groupId);
-    setBookmarksGroups(newGroup);
+    dispatch(deleteGroupAction(groupId));
   };
 
   return (

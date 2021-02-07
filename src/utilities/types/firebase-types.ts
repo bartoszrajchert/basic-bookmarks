@@ -4,6 +4,7 @@ export type IBookmarksGroup = {
   name: string;
   position: number;
   view: EViewType;
+  visible: boolean;
   bookmarks: IBookmark[];
 };
 
