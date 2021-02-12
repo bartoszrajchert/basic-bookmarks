@@ -1,14 +1,17 @@
 import EViewType from '../enums/collection';
 
-export type IBookmarksGroup = {
+export type TBookmarksGroupFirebaseData = {
   name: string;
-  position: number;
   view: EViewType;
   visible: boolean;
-  bookmarks: IBookmark[];
+  bookmarks: TBookmarkFirebaseData[];
 };
 
-export type IBookmark = {
+export type TBookmarkFirebaseData = {
   name: string;
   url: string;
+};
+
+export type TGroupsOrderFirebaseData = {
+  groups: string[];
 };

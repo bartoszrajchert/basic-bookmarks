@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Header from './header';
 import EViewType from '../../../utilities/enums/collection';
-import { IBookmarksGroupsDoc } from '../../../utilities/types/moodboard-types';
+import { TBookmarksGroupData } from '../../../utilities/types/moodboard-types';
 import {
   dbUpdateBookmarksVisibility,
   dbUpdateGroupView,
 } from '../../../utilities/helpers/firebase-helpers';
 import BookmarksContainer from './bookmarks-container';
-import { changeGroupViewTypeAction, changeGroupVisibility } from '../../../store/actions';
+import { changeGroupViewTypeAction, changeGroupVisibility } from '../../../store/actions/groups-actions';
 
 type CollectionProps = {
-  data: IBookmarksGroupsDoc;
+  data: TBookmarksGroupData;
   attributes?: any;
   listeners?: any;
   className?: string;

@@ -3,7 +3,7 @@ import ContentEditable from 'react-contenteditable';
 import { useDispatch } from 'react-redux';
 import { dbUpdateGroupName } from '../../../../../utilities/helpers/firebase-helpers';
 import debounce from '../../../../../utilities/helpers/debounce';
-import { changeGroupName } from '../../../../../store/actions';
+import { changeGroupName } from '../../../../../store/actions/groups-actions';
 
 type HeaderTitleProps = {
   groupId: string;

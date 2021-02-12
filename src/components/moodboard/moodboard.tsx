@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
 import { DndContext, closestCenter, DragOverlay } from '@dnd-kit/core';
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { useDispatch, useSelector } from 'react-redux';
 import Collection from './collection';
 import SortableItem from '../utility/dnd-kit/sortable-item';
-import { IBookmarksGroupsDoc } from '../../utilities/types/moodboard-types';
-import { swapGroupsAction } from '../../store/actions';
+import { TBookmarksGroups, TGroupsOrder } from '../../utilities/types/moodboard-types';
+import { dbSetGroupsOrder } from '../../utilities/helpers/firebase-helpers';
+import { setGroupsOrderAction } from '../../store/actions/groups-order-actions';
 
 const Moodboard = () => {
-  const groups = useSelector<{ groups: IBookmarksGroupsDoc[] }, IBookmarksGroupsDoc[]>(
+  const [activeId, setActiveId] = useState('');
+  const groups = useSelector<{ groups: TBookmarksGroups }, TBookmarksGroups>(
     (state) => state.groups,
   );
-  const dispatch = useDispatch();
 
-  const [activeId, setActiveId] = useState('');
+  const orderGroups = useSelector<{ groupsOrder: TGroupsOrder }, TGroupsOrder>(
+    (state) => state.groupsOrder,
+  );
+
+  const dispatch = useDispatch();
 
   const handleDragStart = (event: { active: any; over: any }) => {
     setActiveId(event.active.id);
@@ -26,17 +31,18 @@ const Moodboard = () => {
     setActiveId('');
 
     if (active.id !== over.id) {
-      const oldIndex = groups.findIndex((groupNode) => groupNode.id === active.id);
-      const newIndex = groups.findIndex((groupNode) => groupNode.id === over.id);
+      const oldIndex = orderGroups.findIndex((groupNode) => groupNode === active.id);
+      const newIndex = orderGroups.findIndex((groupNode) => groupNode === over.id);
+      const newOrder = arrayMove([...orderGroups], oldIndex, newIndex);
 
-      dispatch(swapGroupsAction(oldIndex, newIndex));
+      dispatch(setGroupsOrderAction(newOrder));
+      dbSetGroupsOrder(newOrder).then();
     }
   };
 
-  const getActiveGroup = groups.find((group) => group.id === activeId);
-  const groupsIds = groups.map((group) => group.id);
+  const getActiveGroup = groups[activeId];
 
-  return groups.length === 0 ? (
+  return orderGroups.length === 0 || orderGroups.length > Object.keys(groups).length ? (
     <p className="align-middle text-center">Loading...</p>
   ) : (
     <DndContext
@@ -45,10 +51,10 @@ const Moodboard = () => {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <SortableContext items={groupsIds} strategy={verticalListSortingStrategy}>
-        {groupsIds.map((id, index) => (
+      <SortableContext items={orderGroups} strategy={verticalListSortingStrategy}>
+        {orderGroups.map((id) => (
           <SortableItem key={id} id={id}>
-            <Collection data={groups[index]} className={activeId === id ? 'opacity-40' : ''} />
+            <Collection data={groups[id]} className={activeId === id ? 'opacity-40' : ''} />
           </SortableItem>
         ))}
       </SortableContext>
@@ -59,7 +65,6 @@ const Moodboard = () => {
         }}
       >
         {activeId || typeof getActiveGroup !== 'undefined' ? (
-          /* @ts-ignore */
           <Collection data={getActiveGroup} />
         ) : null}
       </DragOverlay>

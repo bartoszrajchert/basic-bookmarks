@@ -3,20 +3,24 @@ import { IconSquarePlus } from '@tabler/icons';
 import './add-button.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { dbAddCollection } from '../../utilities/helpers/firebase-helpers';
-import { addGroupAction } from '../../store/actions';
-import { IBookmarksGroupsDoc } from '../../utilities/types/moodboard-types';
+import { dbAddCollection, dbSetGroupsOrder } from '../../utilities/helpers/firebase-helpers';
+import { addGroupAction } from '../../store/actions/groups-actions';
+import { setGroupsOrderAction } from '../../store/actions/groups-order-actions';
+import { TGroupsOrder } from '../../utilities/types/moodboard-types';
 
 const AddButton = () => {
   const dispatch = useDispatch();
-  const groups = useSelector<{ groups: IBookmarksGroupsDoc[] }, IBookmarksGroupsDoc[]>(
-    (state) => state.groups,
+  const orderGroups = useSelector<{ groupsOrder: TGroupsOrder }, TGroupsOrder>(
+    (state) => state.groupsOrder,
   );
 
   const addCollection = () => {
-    dbAddCollection(uuidv4(), groups[0].position + 1).then((newGroup) =>
-      dispatch(addGroupAction(newGroup)),
-    );
+    dbAddCollection(uuidv4()).then(async (newGroup) => {
+      dispatch(addGroupAction(newGroup));
+
+      await dbSetGroupsOrder([newGroup.id, ...orderGroups]);
+      dispatch(setGroupsOrderAction([newGroup.id, ...orderGroups]));
+    });
   };
 
   return (

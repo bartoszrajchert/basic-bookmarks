@@ -2,12 +2,12 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-type IconButtonProps = {
+type SortableItemProps = {
   id: string;
   children: React.ReactElement;
 };
 
-const SortableItem = ({ id, children }: IconButtonProps) => {
+const SortableItem = ({ id, children }: SortableItemProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
     id,
     transition: {
