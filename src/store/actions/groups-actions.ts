@@ -1,4 +1,4 @@
-import { TBookmarksGroupData, TBookmarksGroups } from '../../utilities/types/moodboard-types';
+import { TBookmarksGroups, TGroupFirebaseData } from '../../utilities/types/moodboard-types';
 import EViewType from '../../utilities/enums/collection';
 
 export enum EGroupsActions {
@@ -20,7 +20,7 @@ export const groupsFetchedAction = (groups: TBookmarksGroups): TGroupsAction => 
   payload: groups,
 });
 
-export const addGroupAction = (newGroup: TBookmarksGroupData): TGroupsAction => ({
+export const addGroupAction = (newGroup: TGroupFirebaseData): TGroupsAction => ({
   type: EGroupsActions.GROUP_ADD,
   payload: {
     newGroup,

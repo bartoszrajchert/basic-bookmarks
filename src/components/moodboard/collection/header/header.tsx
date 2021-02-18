@@ -3,9 +3,9 @@ import { IconEye, IconLayoutGrid, IconLayoutList, IconMenu2, IconTrash } from '@
 import { useDispatch, useSelector } from 'react-redux';
 import HeaderTitle from './header-title';
 import EViewType from '../../../../utilities/enums/collection';
-import { dbDeleteGroup, dbSetGroupsOrder } from '../../../../utilities/helpers/firebase-helpers';
 import { deleteGroupAction } from '../../../../store/actions/groups-actions';
 import { setGroupsOrderAction } from '../../../../store/actions/groups-order-actions';
+import { dbDeleteGroup, dbSetGroupsOrder } from '../../../../utilities/helpers/firebase';
 
 type HeaderProps = {
   collectionViewType: EViewType;

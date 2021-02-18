@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Header from './header';
 import EViewType from '../../../utilities/enums/collection';
-import { TBookmarksGroupData } from '../../../utilities/types/moodboard-types';
+import BookmarksContainer from './bookmarks-container';
+import {
+  changeGroupViewTypeAction,
+  changeGroupVisibility,
+} from '../../../store/actions/groups-actions';
 import {
   dbUpdateBookmarksVisibility,
   dbUpdateGroupView,
-} from '../../../utilities/helpers/firebase-helpers';
-import BookmarksContainer from './bookmarks-container';
-import { changeGroupViewTypeAction, changeGroupVisibility } from '../../../store/actions/groups-actions';
+} from '../../../utilities/helpers/firebase';
+import { TGroupFirebaseData } from '../../../utilities/types/moodboard-types';
 
 type CollectionProps = {
-  data: TBookmarksGroupData;
+  data: TGroupFirebaseData;
   attributes?: any;
   listeners?: any;
   className?: string;

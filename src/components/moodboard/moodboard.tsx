@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Collection from './collection';
 import SortableItem from '../utility/dnd-kit/sortable-item';
 import { TBookmarksGroups, TGroupsOrder } from '../../utilities/types/moodboard-types';
-import { dbSetGroupsOrder } from '../../utilities/helpers/firebase-helpers';
 import { setGroupsOrderAction } from '../../store/actions/groups-order-actions';
+import { dbSetGroupsOrder } from '../../utilities/helpers/firebase';
 
 const Moodboard = () => {
   const [activeId, setActiveId] = useState('');

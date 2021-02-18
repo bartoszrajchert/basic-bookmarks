@@ -3,10 +3,10 @@ import { IconSquarePlus } from '@tabler/icons';
 import './add-button.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { dbAddCollection, dbSetGroupsOrder } from '../../utilities/helpers/firebase-helpers';
 import { addGroupAction } from '../../store/actions/groups-actions';
 import { setGroupsOrderAction } from '../../store/actions/groups-order-actions';
 import { TGroupsOrder } from '../../utilities/types/moodboard-types';
+import { dbAddGroup, dbSetGroupsOrder } from '../../utilities/helpers/firebase';
 
 const AddButton = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const AddButton = () => {
   );
 
   const addCollection = () => {
-    dbAddCollection(uuidv4()).then(async (newGroup) => {
+    dbAddGroup(uuidv4()).then(async (newGroup) => {
       dispatch(addGroupAction(newGroup));
 
       await dbSetGroupsOrder([newGroup.id, ...orderGroups]);
