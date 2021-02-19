@@ -1,5 +1,9 @@
+import { v4 as uuidv4 } from 'uuid';
 import { TBookmarksGroups, TGroupFirebaseData } from '../../utilities/types/moodboard-types';
 import EViewType from '../../utilities/enums/collection';
+import { dbAddGroup, dbGetGroup, dbSetGroupsOrder } from '../../utilities/helpers/firebase';
+import { addGroupToOrderAction, setGroupsOrderAction } from './groups-order-actions';
+import { TThunk, TAction } from '../../utilities/types/redux-types';
 
 export enum EGroupsActions {
   GROUP_SET = 'GROUP_SET',
@@ -10,31 +14,60 @@ export enum EGroupsActions {
   GROUP_CHANGE_NAME = 'GROUP_CHANGE_NAME',
 }
 
-export type TGroupsAction = {
-  type: EGroupsActions;
-  payload: any;
-};
-
-export const groupsFetchedAction = (groups: TBookmarksGroups): TGroupsAction => ({
+const groupsFetchedAction = (groups: TBookmarksGroups): TAction<EGroupsActions> => ({
   type: EGroupsActions.GROUP_SET,
   payload: groups,
 });
 
-export const addGroupAction = (newGroup: TGroupFirebaseData): TGroupsAction => ({
+const addGroupAction = (newGroup: TGroupFirebaseData): TAction<EGroupsActions> => ({
   type: EGroupsActions.GROUP_ADD,
   payload: {
     newGroup,
   },
 });
 
-export const deleteGroupAction = (id: string): TGroupsAction => ({
+/**
+ * Fetch asynchronously all groups of the user.
+ */
+export const asyncFetchGroups = (): TThunk => async (dispatch) =>
+  dbGetGroup().then((newGroups) => {
+    const { groups } = newGroups;
+    let { order } = newGroups;
+    const areLengthsSame = Object.keys(newGroups.groups).length !== newGroups.order.length;
+
+    if (areLengthsSame) {
+      // eslint-disable-next-line no-console
+      console.error('INTEGRATION FAILED - RESETTING ORDER');
+
+      order = Object.keys(groups);
+      dbSetGroupsOrder(order).then();
+    }
+
+    dispatch(setGroupsOrderAction(order));
+    dispatch(groupsFetchedAction(groups));
+  });
+
+export const asyncAddGroup = (): TThunk => async (dispatch, getState) =>
+  dbAddGroup(uuidv4()).then((newGroup) => {
+    const { order } = getState();
+
+    dispatch(addGroupAction(newGroup));
+    dispatch(addGroupToOrderAction(newGroup.id));
+
+    dbSetGroupsOrder([newGroup.id, ...order]);
+  });
+
+export const deleteGroupAction = (id: string): TAction<EGroupsActions> => ({
   type: EGroupsActions.GROUP_DELETE,
   payload: {
     id,
   },
 });
 
-export const changeGroupViewTypeAction = (id: string, view: EViewType): TGroupsAction => ({
+export const changeGroupViewTypeAction = (
+  id: string,
+  view: EViewType,
+): TAction<EGroupsActions> => ({
   type: EGroupsActions.GROUP_CHANGE_VIEW_TYPE,
   payload: {
     id,
@@ -42,7 +75,7 @@ export const changeGroupViewTypeAction = (id: string, view: EViewType): TGroupsA
   },
 });
 
-export const changeGroupVisibility = (id: string, visible: boolean): TGroupsAction => ({
+export const changeGroupVisibility = (id: string, visible: boolean): TAction<EGroupsActions> => ({
   type: EGroupsActions.GROUP_CHANGE_VISIBILITY,
   payload: {
     id,
@@ -50,7 +83,7 @@ export const changeGroupVisibility = (id: string, visible: boolean): TGroupsActi
   },
 });
 
-export const changeGroupName = (id: string, name: string): TGroupsAction => ({
+export const changeGroupName = (id: string, name: string): TAction<EGroupsActions> => ({
   type: EGroupsActions.GROUP_CHANGE_NAME,
   payload: {
     id,

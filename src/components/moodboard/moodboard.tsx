@@ -15,9 +15,7 @@ const Moodboard = () => {
     (state) => state.groups,
   );
 
-  const orderGroups = useSelector<{ groupsOrder: TGroupsOrder }, TGroupsOrder>(
-    (state) => state.groupsOrder,
-  );
+  const orderGroups = useSelector<{ order: TGroupsOrder }, TGroupsOrder>((state) => state.order);
 
   const dispatch = useDispatch();
 

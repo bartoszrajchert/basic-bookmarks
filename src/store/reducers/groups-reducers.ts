@@ -1,7 +1,8 @@
 import { TBookmarksGroups } from '../../utilities/types/moodboard-types';
-import { TGroupsAction, EGroupsActions } from '../actions/groups-actions';
+import { EGroupsActions } from '../actions/groups-actions';
+import { TAction } from '../../utilities/types/redux-types';
 
-const groupsReducers = (state: TBookmarksGroups = {}, action: TGroupsAction) => {
+const groupsReducers = (state: TBookmarksGroups = {}, action: TAction<EGroupsActions>) => {
   const newState = { ...state };
 
   switch (action.type) {

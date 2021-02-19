@@ -28,15 +28,15 @@ const Collection = ({ data, attributes, listeners, className }: CollectionProps)
 
   // TODO: refactor this
   const changeViewType = async (newView: EViewType) => {
-    await dbUpdateGroupView(data.id, newView);
     dispatch(changeGroupViewTypeAction(data.id, newView));
+    await dbUpdateGroupView(data.id, newView);
     setViewType(newView);
   };
 
   // TODO: refactor this
   const toggleBookmarks = async () => {
-    await dbUpdateBookmarksVisibility(data.id, hideBookmarksState);
     dispatch(changeGroupVisibility(data.id, hideBookmarksState));
+    await dbUpdateBookmarksVisibility(data.id, hideBookmarksState);
     setHideBookmarksState(!hideBookmarksState);
   };
 

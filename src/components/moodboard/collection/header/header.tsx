@@ -6,6 +6,7 @@ import EViewType from '../../../../utilities/enums/collection';
 import { deleteGroupAction } from '../../../../store/actions/groups-actions';
 import { setGroupsOrderAction } from '../../../../store/actions/groups-order-actions';
 import { dbDeleteGroup, dbSetGroupsOrder } from '../../../../utilities/helpers/firebase';
+import { TGroupsOrder } from '../../../../utilities/types/moodboard-types';
 
 type HeaderProps = {
   collectionViewType: EViewType;
@@ -27,9 +28,7 @@ const Header = ({
   draggableListeners,
 }: HeaderProps) => {
   const dispatch = useDispatch();
-  const orderGroups = useSelector<{ groupsOrder: string[] }, string[]>(
-    (state) => state.groupsOrder,
-  );
+  const orderGroups = useSelector<{ order: TGroupsOrder }, TGroupsOrder>((state) => state.order);
 
   const nextType: EViewType =
     collectionViewType === EViewType.small ? EViewType.large : EViewType.small;
