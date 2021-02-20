@@ -1,12 +1,9 @@
 import React from 'react';
 import { IconEye, IconLayoutGrid, IconLayoutList, IconMenu2, IconTrash } from '@tabler/icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import HeaderTitle from './header-title';
 import EViewType from '../../../../utilities/enums/collection';
-import { deleteGroupAction } from '../../../../store/actions/groups-actions';
-import { setGroupsOrderAction } from '../../../../store/actions/groups-order-actions';
-import { dbDeleteGroup, dbSetGroupsOrder } from '../../../../utilities/helpers/firebase';
-import { TGroupsOrder } from '../../../../utilities/types/moodboard-types';
+import { thunkDeleteGroup } from '../../../../store/actions/thunk-actions';
 
 type HeaderProps = {
   collectionViewType: EViewType;
@@ -28,21 +25,12 @@ const Header = ({
   draggableListeners,
 }: HeaderProps) => {
   const dispatch = useDispatch();
-  const orderGroups = useSelector<{ order: TGroupsOrder }, TGroupsOrder>((state) => state.order);
 
   const nextType: EViewType =
     collectionViewType === EViewType.small ? EViewType.large : EViewType.small;
 
   const deleteGroup = async () => {
-    const deletedGroupIndex = orderGroups.indexOf(groupId);
-    const newOrderGroups = [...orderGroups];
-    newOrderGroups.splice(deletedGroupIndex, 1);
-
-    await dbSetGroupsOrder(newOrderGroups);
-    dispatch(setGroupsOrderAction(newOrderGroups));
-
-    await dbDeleteGroup(groupId);
-    dispatch(deleteGroupAction(groupId));
+    dispatch(thunkDeleteGroup(groupId));
   };
 
   return (

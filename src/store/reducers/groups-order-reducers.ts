@@ -6,7 +6,7 @@ const ordersReducers = (state: TGroupsOrder = [], action: TAction<EGroupsOrderAc
   switch (action.type) {
     case EGroupsOrderActions.ORDER_SET:
       return [...action.payload];
-    case EGroupsOrderActions.ADD_ORDER:
+    case EGroupsOrderActions.ORDER_ADD:
       return [action.payload, ...state];
     default:
       return state;

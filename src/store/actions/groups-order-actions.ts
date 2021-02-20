@@ -3,7 +3,7 @@ import { TAction } from '../../utilities/types/redux-types';
 
 export enum EGroupsOrderActions {
   ORDER_SET = 'ORDER_SET',
-  ADD_ORDER = 'ADD_ORDER',
+  ORDER_ADD = 'ORDER_ADD',
 }
 
 export const setGroupsOrderAction = (orders: TGroupsOrder): TAction<EGroupsOrderActions> => ({
@@ -12,6 +12,6 @@ export const setGroupsOrderAction = (orders: TGroupsOrder): TAction<EGroupsOrder
 });
 
 export const addGroupToOrderAction = (id: string): TAction<EGroupsOrderActions> => ({
-  type: EGroupsOrderActions.ADD_ORDER,
+  type: EGroupsOrderActions.ORDER_ADD,
   payload: id,
 });

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IconSquarePlus } from '@tabler/icons';
 import './add-button.scss';
 import { useDispatch } from 'react-redux';
-import { asyncAddGroup } from '../../store/actions/groups-actions';
+import { asyncAddGroup } from '../../store/actions/thunk-actions';
 
 const AddButton = () => {
   const dispatch = useDispatch();

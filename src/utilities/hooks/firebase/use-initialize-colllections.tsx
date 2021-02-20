@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { asyncFetchGroups } from '../../../store/actions/groups-actions';
+import { asyncFetchGroups } from '../../../store/actions/thunk-actions';
 
 const useInitializeCollections = () => {
   const [initialized, setInitialized] = useState(false);
