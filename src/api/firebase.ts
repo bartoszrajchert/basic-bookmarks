@@ -1,8 +1,8 @@
 import firebase from 'firebase';
-import { TBookmarkDataFirebase, TGroupFirebase, TUserData } from '../types/moodboard-types';
-import { firestore } from '../../firebase';
-import uuidValidateV4 from './uuid';
-import EViewType from '../enums/collection';
+import { TBookmarkData, TGroup, TUserData } from '../utilities/types/moodboard-types';
+import { firestore } from '../firebase';
+import uuidValidateV4 from '../utilities/helpers/uuid';
+import EViewType from '../utilities/enums/collection';
 
 const userId = 'user-name';
 
@@ -10,14 +10,14 @@ const dbConstants = {
   groups: 'groups',
 };
 
-const createBookmarkDoc = (id: string, name: string): TBookmarkDataFirebase => ({
+const createBookmarkDoc = (id: string, name: string): TBookmarkData => ({
   id,
   name,
   icon: 'icon_url',
   url: 'url',
 });
 
-const createGroupDoc = (id: string): TGroupFirebase => ({
+const createGroupDoc = (id: string): TGroup => ({
   id,
   name: '',
   view: EViewType.small,
@@ -50,7 +50,7 @@ export const dbSetGroupsOrder = async (groupsIds: string[]): Promise<void> =>
     order: groupsIds,
   });
 
-export const dbAddGroup = async (id: string): Promise<TGroupFirebase> => {
+export const dbAddGroup = async (id: string): Promise<TGroup> => {
   if (!uuidValidateV4(id)) {
     throw Error('Do not change id!');
   }

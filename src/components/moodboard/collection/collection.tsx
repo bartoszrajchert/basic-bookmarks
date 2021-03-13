@@ -5,16 +5,16 @@ import EViewType from '../../../utilities/enums/collection';
 import {
   changeGroupViewTypeAction,
   changeGroupVisibility,
-} from '../../../store/actions/groups-actions';
+} from '../../../store/actions/groups/groups-actions';
 import {
   dbUpdateBookmarksVisibility,
   dbUpdateGroupView,
-} from '../../../utilities/helpers/firebase';
-import { TGroupFirebase } from '../../../utilities/types/moodboard-types';
+} from '../../../api/firebase';
+import { TGroup } from '../../../utilities/types/moodboard-types';
 import BookmarksContainer from './bookmarks-container';
 
 type CollectionProps = {
-  data: TGroupFirebase;
+  data: TGroup;
   attributes?: any;
   listeners?: any;
   className?: string;

@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import Navbar from '../components/navbar';
 import Moodboard from '../components/moodboard';
-import useInitializeCollections from '../utilities/hooks/firebase/use-initialize-colllections';
-import AddButton from '../components/add-button';
+import useInitializeCollections from '../utilities/hooks/use-initialize-colllections';
+import AddButton from '../components/moodboard/add-button';
 
 const App = () => {
   useInitializeCollections();

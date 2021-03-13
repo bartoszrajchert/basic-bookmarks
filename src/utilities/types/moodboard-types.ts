@@ -1,40 +1,59 @@
 import EViewType from '../enums/collection';
 
-export type TGroupFirebase = {
+/**
+ * Group data.
+ */
+export type TGroup = {
   id: string;
   name: string;
   view: EViewType;
   visible: boolean;
-  bookmarks: TBookmarksFirebase;
+  bookmarks: TBookmarks;
 };
 
-export type TBookmarksFirebase = {
-  data: TBookmarks;
-  order: string[];
+/**
+ * Information about bookmarks.
+ */
+export type TBookmarks = {
+  data: TBookmarksObject;
+  order: TOrder;
 };
 
-export type TBookmarkDataFirebase = {
+/**
+ * Bookmarks data.
+ */
+export type TBookmarkData = {
   id: string;
   name: string;
   icon: string;
   url: string;
 };
 
-export type TGroupsOrderFirebaseData = {
-  groups: string[];
-};
-
-export type TGroups = {
-  [key: string]: TGroupFirebase;
-};
-
-export type TBookmarks = {
-  [key: string]: TBookmarkDataFirebase;
-};
-
-export type TGroupsOrder = string[];
-
+/**
+ * User data.
+ */
 export type TUserData = {
-  groups: TGroups;
-  order: TGroupsOrder;
+  groups: TGroupsObject;
+  order: TOrder;
 };
+
+/**
+ * Groups object.
+ * [id]: data
+ */
+export type TGroupsObject = {
+  [key: string]: TGroup;
+};
+
+/**
+ * Bookmarks object.
+ * [id]: data
+ */
+export type TBookmarksObject = {
+  [key: string]: TBookmarkData;
+};
+
+/**
+ * Type for data order.
+ */
+export type TOrder = string[];

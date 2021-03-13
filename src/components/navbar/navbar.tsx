@@ -1,9 +1,10 @@
 import React from 'react';
 import { IconLink, IconMenu, IconSettings, IconUser } from '@tabler/icons';
-import IconButton from '../utility/icon-button';
-import SearchBar from '../utility/search-bar';
+import IconButton from '../common/icon-button';
+import SearchBar from '../common/search-bar';
 
 function showAlert(): void {
+  // eslint-disable-next-line no-alert
   alert('Alert');
 }
 

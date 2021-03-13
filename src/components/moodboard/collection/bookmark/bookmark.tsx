@@ -2,17 +2,17 @@ import * as React from 'react';
 import facebook from '../../../../assets/facebook.png';
 import EViewType from '../../../../utilities/enums/collection';
 import BookmarkIcon from './bookmark-icon';
-import { TBookmarkDataFirebase } from '../../../../utilities/types/moodboard-types';
+import { TBookmarkData } from '../../../../utilities/types/moodboard-types';
 
 type BookmarkProps = {
   type: EViewType;
-  data: TBookmarkDataFirebase;
+  data: TBookmarkData;
   attributes?: any;
   listeners?: any;
   className?: string;
 };
 
-const largeBookmark = (data: TBookmarkDataFirebase) => (
+const largeBookmark = (data: TBookmarkData) => (
   <div
     className="bg-black-800 rounded-base p-12 flex items-center cursor-pointer"
     style={{ width: '180px' }}
@@ -24,7 +24,7 @@ const largeBookmark = (data: TBookmarkDataFirebase) => (
   </div>
 );
 
-const smallBookmark = (data: TBookmarkDataFirebase) => (
+const smallBookmark = (data: TBookmarkData) => (
   <div className="flex flex-col items-center cursor-pointer">
     <BookmarkIcon img={facebook} alt="Facebook logo" />
     <div className="mt-8">

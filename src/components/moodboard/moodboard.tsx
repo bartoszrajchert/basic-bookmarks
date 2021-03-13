@@ -4,18 +4,18 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-ki
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { useDispatch, useSelector } from 'react-redux';
 import Collection from './collection';
-import SortableItem from '../utility/dnd-kit/sortable-item';
-import { TGroups, TGroupsOrder } from '../../utilities/types/moodboard-types';
-import { setGroupsOrderAction } from '../../store/actions/groups-order-actions';
-import { dbSetGroupsOrder } from '../../utilities/helpers/firebase';
+import SortableItem from '../common/dnd-kit/sortable-item';
+import { TGroupsObject, TOrder } from '../../utilities/types/moodboard-types';
+import { setGroupsOrderAction } from '../../store/actions/groups/order/groups-order-actions';
+import { dbSetGroupsOrder } from '../../api/firebase';
 
 const Moodboard = () => {
   const [activeId, setActiveId] = useState('');
-  const groups = useSelector<{ groups: TGroups }, TGroups>(
+  const groups = useSelector<{ groups: TGroupsObject }, TGroupsObject>(
     (state) => state.groups,
   );
 
-  const orderGroups = useSelector<{ order: TGroupsOrder }, TGroupsOrder>((state) => state.order);
+  const orderGroups = useSelector<{ order: TOrder }, TOrder>((state) => state.order);
 
   const dispatch = useDispatch();
 

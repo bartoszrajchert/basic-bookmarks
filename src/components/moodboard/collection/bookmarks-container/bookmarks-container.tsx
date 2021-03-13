@@ -3,18 +3,18 @@ import { useDispatch } from 'react-redux';
 import { closestCenter, DndContext, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, rectSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import { useRef, useState } from 'react';
-import SortableItem from '../../../utility/dnd-kit/sortable-item';
+import SortableItem from '../../../common/dnd-kit/sortable-item';
 import Bookmark from '../bookmark';
 import EViewType from '../../../../utilities/enums/collection';
 import './bookmarks-container.scss';
-import { TBookmarksFirebase } from '../../../../utilities/types/moodboard-types';
-import { dbUpdateBookmarksOrder } from '../../../../utilities/helpers/firebase';
-import { changeBookmarksOrder } from '../../../../store/actions/groups-actions';
+import { TBookmarks } from '../../../../utilities/types/moodboard-types';
+import { dbUpdateBookmarksOrder } from '../../../../api/firebase';
+import { changeBookmarksOrder } from '../../../../store/actions/groups/groups-actions';
 
 type BookmarksContainerProps = {
   hideBookmarks: boolean;
   viewType: EViewType;
-  bookmarks: TBookmarksFirebase;
+  bookmarks: TBookmarks;
   groupId: string;
 };
 
