@@ -7,9 +7,9 @@ import SortableItem from 'components/common/dnd-kit/sortable-item';
 import { TGroupsObject, TOrder } from 'utilities/types/moodboard-types';
 import { setGroupsOrderAction } from 'store/actions/groups/order/groups-order-actions';
 import { dbSetGroupsOrder } from 'api/firebase';
-import GroupContainer from 'components/moodboard/group-container';
+import GroupContainer from 'components/moodboard-container/group-container';
 
-const Moodboard = () => {
+const MoodboardContainer = () => {
   const [activeId, setActiveId] = useState('');
   const groups = useSelector<{ groups: TGroupsObject }, TGroupsObject>((state) => state.groups);
 
@@ -68,4 +68,4 @@ const Moodboard = () => {
   );
 };
 
-export default Moodboard;
+export default MoodboardContainer;

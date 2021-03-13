@@ -1,8 +1,8 @@
 import * as React from 'react';
 import EViewType from 'utilities/enums/collection';
 import { TBookmarkData } from 'utilities/types/moodboard-types';
-import SmallBookmark from 'components/moodboard/group-container/bookmarks-container/bookmark/bookmark.small';
-import LargeBookmark from 'components/moodboard/group-container/bookmarks-container/bookmark/bookmark.large';
+import SmallBookmark from 'components/moodboard-container/group-container/bookmarks-container/bookmark/bookmark.small';
+import LargeBookmark from 'components/moodboard-container/group-container/bookmarks-container/bookmark/bookmark.large';
 
 type BookmarkProps = {
   type: EViewType;

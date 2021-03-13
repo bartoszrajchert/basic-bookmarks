@@ -5,7 +5,7 @@ import { arrayMove, rectSortingStrategy, SortableContext } from '@dnd-kit/sortab
 import { useRef, useState } from 'react';
 import SortableItem from 'components/common/dnd-kit/sortable-item';
 import { TBookmarks } from 'utilities/types/moodboard-types';
-import Bookmark from 'components/moodboard/group-container/bookmarks-container/bookmark';
+import Bookmark from 'components/moodboard-container/group-container/bookmarks-container/bookmark';
 import EViewType from 'utilities/enums/collection';
 import { dbUpdateBookmarksOrder } from 'api/firebase';
 import { changeBookmarksOrder } from 'store/actions/groups/groups-actions';

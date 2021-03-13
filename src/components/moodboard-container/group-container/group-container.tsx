@@ -7,12 +7,12 @@ import {
 } from 'store/actions/groups/groups-actions';
 import { dbUpdateBookmarksVisibility, dbUpdateGroupName, dbUpdateGroupView } from 'api/firebase';
 import { TGroup } from 'utilities/types/moodboard-types';
-import Header from 'components/moodboard/group-container/header';
-import BookmarksContainer from 'components/moodboard/group-container/bookmarks-container';
+import Header from 'components/moodboard-container/group-container/header';
+import BookmarksContainer from 'components/moodboard-container/group-container/bookmarks-container';
 import EViewType from 'utilities/enums/collection';
 import { thunkDeleteGroup } from 'store/actions/groups/groups-thunk-actions';
 import debounce from 'utilities/helpers/debounce';
-import HeaderTitle from 'components/moodboard/group-container/header/header-title';
+import HeaderTitle from 'components/moodboard-container/group-container/header/header-title';
 
 type CollectionProps = {
   data: TGroup;
