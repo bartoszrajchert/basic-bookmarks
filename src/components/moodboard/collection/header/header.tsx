@@ -3,7 +3,7 @@ import { IconEye, IconLayoutGrid, IconLayoutList, IconMenu2, IconTrash } from '@
 import { useDispatch } from 'react-redux';
 import HeaderTitle from './header-title';
 import EViewType from '../../../../utilities/enums/collection';
-import { thunkDeleteGroup } from '../../../../store/actions/thunk-actions';
+import { thunkDeleteGroup } from '../../../../store/actions/groups-thunk-actions';
 
 type HeaderProps = {
   collectionViewType: EViewType;

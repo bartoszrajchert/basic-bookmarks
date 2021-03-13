@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Header from './header';
 import EViewType from '../../../utilities/enums/collection';
-import BookmarksContainer from './bookmarks-container';
 import {
   changeGroupViewTypeAction,
   changeGroupVisibility,
@@ -11,10 +10,11 @@ import {
   dbUpdateBookmarksVisibility,
   dbUpdateGroupView,
 } from '../../../utilities/helpers/firebase';
-import { TGroupFirebaseData } from '../../../utilities/types/moodboard-types';
+import { TGroupFirebase } from '../../../utilities/types/moodboard-types';
+import BookmarksContainer from './bookmarks-container';
 
 type CollectionProps = {
-  data: TGroupFirebaseData;
+  data: TGroupFirebase;
   attributes?: any;
   listeners?: any;
   className?: string;
@@ -51,7 +51,12 @@ const Collection = ({ data, attributes, listeners, className }: CollectionProps)
         draggableAttributes={attributes}
         draggableListeners={listeners}
       />
-      <BookmarksContainer hideBookmarks={hideBookmarksState} viewType={viewType} />
+      <BookmarksContainer
+        hideBookmarks={hideBookmarksState}
+        viewType={viewType}
+        bookmarks={data.bookmarks}
+        groupId={data.id}
+      />
     </div>
   );
 };

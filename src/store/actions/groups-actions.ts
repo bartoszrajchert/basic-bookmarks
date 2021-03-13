@@ -1,4 +1,4 @@
-import { TBookmarksGroups, TGroupFirebaseData } from '../../utilities/types/moodboard-types';
+import { TGroups, TGroupFirebase } from '../../utilities/types/moodboard-types';
 import EViewType from '../../utilities/enums/collection';
 import { TAction } from '../../utilities/types/redux-types';
 
@@ -9,14 +9,15 @@ export enum EGroupsActions {
   GROUP_CHANGE_VIEW_TYPE = 'GROUP_CHANGE_VIEW_TYPE',
   GROUP_CHANGE_VISIBILITY = 'GROUP_CHANGE_VISIBILITY',
   GROUP_CHANGE_NAME = 'GROUP_CHANGE_NAME',
+  GROUP_CHANGE_BOOKMARKS_ORDER = 'GROUP_CHANGE_BOOKMARKS_ORDER',
 }
 
-export const groupsFetchedAction = (groups: TBookmarksGroups): TAction<EGroupsActions> => ({
+export const groupsFetchedAction = (groups: TGroups): TAction<EGroupsActions> => ({
   type: EGroupsActions.GROUP_SET,
   payload: groups,
 });
 
-export const addGroupAction = (newGroup: TGroupFirebaseData): TAction<EGroupsActions> => ({
+export const addGroupAction = (newGroup: TGroupFirebase): TAction<EGroupsActions> => ({
   type: EGroupsActions.GROUP_ADD,
   payload: {
     newGroup,
@@ -54,5 +55,13 @@ export const changeGroupName = (id: string, name: string): TAction<EGroupsAction
   payload: {
     id,
     name,
+  },
+});
+
+export const changeBookmarksOrder = (id: string, orders: string[]): TAction<EGroupsActions> => ({
+  type: EGroupsActions.GROUP_CHANGE_BOOKMARKS_ORDER,
+  payload: {
+    id,
+    orders,
   },
 });

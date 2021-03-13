@@ -5,13 +5,13 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { useDispatch, useSelector } from 'react-redux';
 import Collection from './collection';
 import SortableItem from '../utility/dnd-kit/sortable-item';
-import { TBookmarksGroups, TGroupsOrder } from '../../utilities/types/moodboard-types';
+import { TGroups, TGroupsOrder } from '../../utilities/types/moodboard-types';
 import { setGroupsOrderAction } from '../../store/actions/groups-order-actions';
 import { dbSetGroupsOrder } from '../../utilities/helpers/firebase';
 
 const Moodboard = () => {
   const [activeId, setActiveId] = useState('');
-  const groups = useSelector<{ groups: TBookmarksGroups }, TBookmarksGroups>(
+  const groups = useSelector<{ groups: TGroups }, TGroups>(
     (state) => state.groups,
   );
 

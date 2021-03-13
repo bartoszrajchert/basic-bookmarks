@@ -1,8 +1,8 @@
-import { TBookmarksGroups } from '../../utilities/types/moodboard-types';
+import { TGroups } from '../../utilities/types/moodboard-types';
 import { EGroupsActions } from '../actions/groups-actions';
 import { TAction } from '../../utilities/types/redux-types';
 
-const groupsReducers = (state: TBookmarksGroups = {}, action: TAction<EGroupsActions>) => {
+const groupsReducers = (state: TGroups = {}, action: TAction<EGroupsActions>) => {
   const newState = { ...state };
 
   switch (action.type) {
@@ -26,6 +26,10 @@ const groupsReducers = (state: TBookmarksGroups = {}, action: TAction<EGroupsAct
     }
     case EGroupsActions.GROUP_CHANGE_NAME: {
       newState[action.payload.id].name = action.payload.name;
+      return newState;
+    }
+    case EGroupsActions.GROUP_CHANGE_BOOKMARKS_ORDER: {
+      newState[action.payload.id].bookmarks.order = action.payload.orders;
       return newState;
     }
     default:
