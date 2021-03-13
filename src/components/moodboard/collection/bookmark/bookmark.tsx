@@ -1,8 +1,8 @@
 import * as React from 'react';
-import facebook from '../../../../assets/facebook.png';
-import EViewType from '../../../../utilities/enums/collection';
-import BookmarkIcon from './bookmark-icon';
-import { TBookmarkData } from '../../../../utilities/types/moodboard-types';
+import EViewType from 'utilities/enums/collection';
+import { TBookmarkData } from 'utilities/types/moodboard-types';
+import BookmarkIcon from 'components/moodboard/collection/bookmark/bookmark-icon';
+import facebook from 'assets/facebook.png';
 
 type BookmarkProps = {
   type: EViewType;

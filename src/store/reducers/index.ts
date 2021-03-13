@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import groupsReducers from './groups-reducers';
-import ordersReducers from './groups-order-reducers';
+import groupsReducers from 'store/reducers/groups-reducers';
+import ordersReducers from 'store/reducers/groups-order-reducers';
 
 const reducers = combineReducers({
   groups: groupsReducers,

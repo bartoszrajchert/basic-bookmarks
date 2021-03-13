@@ -1,6 +1,6 @@
-import { EGroupsOrderActions } from '../actions/groups/order/groups-order-actions';
-import { TOrder } from '../../utilities/types/moodboard-types';
-import { TAction } from '../../utilities/types/redux-types';
+import { TOrder } from 'utilities/types/moodboard-types';
+import { TAction } from 'utilities/types/redux-types';
+import { EGroupsOrderActions } from 'store/actions/groups/order/groups-order-actions';
 
 const ordersReducers = (state: TOrder = [], action: TAction<EGroupsOrderActions>) => {
   switch (action.type) {

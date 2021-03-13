@@ -1,6 +1,6 @@
-import { TGroupsObject } from '../../utilities/types/moodboard-types';
-import { EGroupsActions } from '../actions/groups/groups-actions';
-import { TAction } from '../../utilities/types/redux-types';
+import { TGroupsObject } from 'utilities/types/moodboard-types';
+import { TAction } from 'utilities/types/redux-types';
+import { EGroupsActions } from 'store/actions/groups/groups-actions';
 
 const groupsReducers = (state: TGroupsObject = {}, action: TAction<EGroupsActions>) => {
   const newState = { ...state };

@@ -1,13 +1,15 @@
 import { v4 as uuidv4 } from 'uuid';
-import { TThunk } from '../../../utilities/types/redux-types';
-import { addGroupAction, deleteGroupAction, groupsFetchedAction } from './groups-actions';
+import { TThunk } from 'utilities/types/redux-types';
+import { dbAddGroup, dbDeleteGroup, dbGetGroup, dbSetGroupsOrder } from 'api/firebase';
 import {
-  dbAddGroup,
-  dbDeleteGroup,
-  dbGetGroup,
-  dbSetGroupsOrder,
-} from '../../../api/firebase';
-import { addGroupToOrderAction, setGroupsOrderAction } from './order/groups-order-actions';
+  addGroupToOrderAction,
+  setGroupsOrderAction,
+} from 'store/actions/groups/order/groups-order-actions';
+import {
+  addGroupAction,
+  deleteGroupAction,
+  groupsFetchedAction,
+} from 'store/actions/groups/groups-actions';
 
 export const thunkDeleteGroup = (id: string): TThunk => (dispatch, getState) => {
   const { order } = getState();

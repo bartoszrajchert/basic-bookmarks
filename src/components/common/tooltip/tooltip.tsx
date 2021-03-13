@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import './tooltip.scss';
-import useWindowWidth from '../../../utilities/hooks/use-window-width';
+import useWindowWidth from 'utilities/hooks/use-window-width';
 
 type TooltipProps = {
   text: string;

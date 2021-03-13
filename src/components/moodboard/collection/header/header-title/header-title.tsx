@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import ContentEditable from 'react-contenteditable';
 import { useDispatch } from 'react-redux';
-import debounce from '../../../../../utilities/helpers/debounce';
-import { changeGroupName } from '../../../../../store/actions/groups/groups-actions';
-import { dbUpdateGroupName } from '../../../../../api/firebase';
+import debounce from 'utilities/helpers/debounce';
+import { dbUpdateGroupName } from 'api/firebase';
+import { changeGroupName } from 'store/actions/groups/groups-actions';
 
 type HeaderTitleProps = {
   groupId: string;

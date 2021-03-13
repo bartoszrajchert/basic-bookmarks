@@ -1,9 +1,8 @@
 import React from 'react';
-import './App.css';
-import Navbar from '../components/navbar';
-import Moodboard from '../components/moodboard';
-import useInitializeCollections from '../utilities/hooks/use-initialize-colllections';
-import AddButton from '../components/moodboard/add-button';
+import Moodboard from 'components/moodboard';
+import Navbar from 'components/navbar';
+import AddButton from 'components/moodboard/add-button';
+import useInitializeCollections from 'utilities/hooks/use-initialize-colllections';
 
 const App = () => {
   useInitializeCollections();

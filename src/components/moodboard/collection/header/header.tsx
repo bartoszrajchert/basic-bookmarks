@@ -1,9 +1,9 @@
 import React from 'react';
 import { IconEye, IconLayoutGrid, IconLayoutList, IconMenu2, IconTrash } from '@tabler/icons';
 import { useDispatch } from 'react-redux';
-import HeaderTitle from './header-title';
-import EViewType from '../../../../utilities/enums/collection';
-import { thunkDeleteGroup } from '../../../../store/actions/groups/groups-thunk-actions';
+import HeaderTitle from 'components/moodboard/collection/header/header-title';
+import EViewType from 'utilities/enums/collection';
+import { thunkDeleteGroup } from 'store/actions/groups/groups-thunk-actions';
 
 type HeaderProps = {
   collectionViewType: EViewType;

@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Header from './header';
-import EViewType from '../../../utilities/enums/collection';
 import {
   changeGroupViewTypeAction,
   changeGroupVisibility,
-} from '../../../store/actions/groups/groups-actions';
-import {
-  dbUpdateBookmarksVisibility,
-  dbUpdateGroupView,
-} from '../../../api/firebase';
-import { TGroup } from '../../../utilities/types/moodboard-types';
-import BookmarksContainer from './bookmarks-container';
+} from 'store/actions/groups/groups-actions';
+import { dbUpdateBookmarksVisibility, dbUpdateGroupView } from 'api/firebase';
+import { TGroup } from 'utilities/types/moodboard-types';
+import Header from 'components/moodboard/collection/header';
+import BookmarksContainer from 'components/moodboard/collection/bookmarks-container';
+import EViewType from 'utilities/enums/collection';
 
 type CollectionProps = {
   data: TGroup;

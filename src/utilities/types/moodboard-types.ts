@@ -1,4 +1,4 @@
-import EViewType from '../enums/collection';
+import EViewType from 'utilities/enums/collection';
 
 /**
  * Group data.

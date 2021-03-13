@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import debounce from '../helpers/debounce';
+import debounce from 'utilities/helpers/debounce';
 
 const useWindowWidth = (delay: number) => {
   const [width, setWidth] = useState(window.innerWidth);

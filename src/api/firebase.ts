@@ -1,8 +1,8 @@
 import firebase from 'firebase';
-import { TBookmarkData, TGroup, TUserData } from '../utilities/types/moodboard-types';
-import { firestore } from '../firebase';
-import uuidValidateV4 from '../utilities/helpers/uuid';
-import EViewType from '../utilities/enums/collection';
+import uuidValidateV4 from 'utilities/helpers/uuid';
+import EViewType from 'utilities/enums/collection';
+import { TBookmarkData, TGroup, TUserData } from 'utilities/types/moodboard-types';
+import { firestore } from 'firebase-config';
 
 const userId = 'user-name';
 

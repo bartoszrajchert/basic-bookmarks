@@ -3,13 +3,12 @@ import { useDispatch } from 'react-redux';
 import { closestCenter, DndContext, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, rectSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import { useRef, useState } from 'react';
-import SortableItem from '../../../common/dnd-kit/sortable-item';
-import Bookmark from '../bookmark';
-import EViewType from '../../../../utilities/enums/collection';
-import './bookmarks-container.scss';
-import { TBookmarks } from '../../../../utilities/types/moodboard-types';
-import { dbUpdateBookmarksOrder } from '../../../../api/firebase';
-import { changeBookmarksOrder } from '../../../../store/actions/groups/groups-actions';
+import SortableItem from 'components/common/dnd-kit/sortable-item';
+import { TBookmarks } from 'utilities/types/moodboard-types';
+import Bookmark from 'components/moodboard/collection/bookmark';
+import EViewType from 'utilities/enums/collection';
+import { dbUpdateBookmarksOrder } from 'api/firebase';
+import { changeBookmarksOrder } from 'store/actions/groups/groups-actions';
 
 type BookmarksContainerProps = {
   hideBookmarks: boolean;

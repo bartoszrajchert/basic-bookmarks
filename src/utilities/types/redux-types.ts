@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import { TUserData } from './moodboard-types';
+import { TUserData } from 'utilities/types/moodboard-types';
 
 export type TAction<E = string> = {
   type: E;

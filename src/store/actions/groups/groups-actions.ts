@@ -1,6 +1,6 @@
-import { TGroupsObject, TGroup } from '../../../utilities/types/moodboard-types';
-import EViewType from '../../../utilities/enums/collection';
-import { TAction } from '../../../utilities/types/redux-types';
+import { TGroupsObject, TGroup } from 'utilities/types/moodboard-types';
+import { TAction } from 'utilities/types/redux-types';
+import EViewType from 'utilities/enums/collection';
 
 export enum EGroupsActions {
   GROUP_SET = 'GROUP_SET',

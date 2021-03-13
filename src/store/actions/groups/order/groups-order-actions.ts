@@ -1,5 +1,5 @@
-import { TOrder } from '../../../../utilities/types/moodboard-types';
-import { TAction } from '../../../../utilities/types/redux-types';
+import { TOrder } from 'utilities/types/moodboard-types';
+import { TAction } from 'utilities/types/redux-types';
 
 export enum EGroupsOrderActions {
   ORDER_SET = 'ORDER_SET',
