@@ -7,12 +7,12 @@ import {
 } from 'store/actions/groups/groups-actions';
 import { dbUpdateBookmarksVisibility, dbUpdateGroupName, dbUpdateGroupView } from 'api/firebase';
 import { TGroup } from 'utilities/types/moodboard-types';
-import Header from 'components/moodboard/group/header';
-import BookmarksContainer from 'components/moodboard/group/bookmarks-container';
+import Header from 'components/moodboard/group-container/header';
+import BookmarksContainer from 'components/moodboard/group-container/bookmarks-container';
 import EViewType from 'utilities/enums/collection';
 import { thunkDeleteGroup } from 'store/actions/groups/groups-thunk-actions';
 import debounce from 'utilities/helpers/debounce';
-import HeaderTitle from 'components/moodboard/group/header/header-title';
+import HeaderTitle from 'components/moodboard/group-container/header/header-title';
 
 type CollectionProps = {
   data: TGroup;
@@ -21,7 +21,7 @@ type CollectionProps = {
   className?: string;
 };
 
-const Group = ({ data, attributes, listeners, className }: CollectionProps) => {
+const GroupContainer = ({ data, attributes, listeners, className }: CollectionProps) => {
   const dispatch = useDispatch();
   const [showPlaceholder, setShowPlaceholder] = useState(data.name === '');
 
@@ -42,7 +42,7 @@ const Group = ({ data, attributes, listeners, className }: CollectionProps) => {
   );
 
   /**
-   * Change view type of the bookmarks in group.
+   * Change view type of the bookmarks in group-container.
    *
    * @param newView
    */
@@ -52,7 +52,7 @@ const Group = ({ data, attributes, listeners, className }: CollectionProps) => {
   };
 
   /**
-   * Show or hide bookmarks in group.
+   * Show or hide bookmarks in group-container.
    */
   const toggleBookmarks = async () => {
     const newVisible = !data.visible;
@@ -62,7 +62,7 @@ const Group = ({ data, attributes, listeners, className }: CollectionProps) => {
   };
 
   /**
-   * Delete group.
+   * Delete group-container.
    * This method is calling thunk.
    */
   const deleteGroup = async () => {
@@ -70,7 +70,7 @@ const Group = ({ data, attributes, listeners, className }: CollectionProps) => {
   };
 
   /**
-   * Change group name to placeholder when it is necessary.
+   * Change group-container name to placeholder when it is necessary.
    *
    * @param newText
    */
@@ -81,7 +81,7 @@ const Group = ({ data, attributes, listeners, className }: CollectionProps) => {
   };
 
   /**
-   * Change name of the group.
+   * Change name of the group-container.
    *
    * @param newText
    */
@@ -93,7 +93,7 @@ const Group = ({ data, attributes, listeners, className }: CollectionProps) => {
   };
 
   /**
-   * Remove placeholder in the name of the group.
+   * Remove placeholder in the name of the group-container.
    * The component is doing his job when
    * the placeholder is set.
    */
@@ -140,10 +140,10 @@ const Group = ({ data, attributes, listeners, className }: CollectionProps) => {
   );
 };
 
-Group.defaultProps = {
+GroupContainer.defaultProps = {
   attributes: [],
   listeners: [],
   className: '',
 };
 
-export default Group;
+export default GroupContainer;

@@ -1,7 +1,7 @@
 import EViewType from 'utilities/enums/collection';
 
 /**
- * Group data.
+ * GroupContainer data.
  */
 export type TGroup = {
   id: string;

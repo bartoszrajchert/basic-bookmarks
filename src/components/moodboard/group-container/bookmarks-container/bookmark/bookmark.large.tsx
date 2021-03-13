@@ -1,5 +1,5 @@
 import { TBookmarkData } from 'utilities/types/moodboard-types';
-import BookmarkIcon from 'components/moodboard/group/bookmarks-container/bookmark/bookmark-icon';
+import BookmarkIcon from 'components/moodboard/group-container/bookmarks-container/bookmark/bookmark-icon';
 import facebook from 'assets/facebook.png';
 import * as React from 'react';
 
