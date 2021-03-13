@@ -1,62 +1,31 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import ContentEditable from 'react-contenteditable';
-import { useDispatch } from 'react-redux';
-import debounce from 'utilities/helpers/debounce';
-import { dbUpdateGroupName } from 'api/firebase';
-import { changeGroupName } from 'store/actions/groups/groups-actions';
 
 type HeaderTitleProps = {
-  groupId: string;
-  name: string;
+  title: string;
+  showPlaceholder: boolean;
+  changeText: (newText: string) => void;
+  changeTextToPlaceholder: (newText: string) => void;
+  removePlaceholder: () => void;
 };
 
-const placeholderText = 'Enter component name';
+const PLACEHOLDER_TEXT = 'Enter component name';
 
-const HeaderTitle = ({ groupId, name }: HeaderTitleProps) => {
-  const dispatch = useDispatch();
-  const [text, setText] = useState(name);
-  const [placeholder, setPlaceholder] = useState(name === '');
-
-  const changeTextToPlaceholder = (newText: String) => {
-    if (newText !== '') return;
-
-    setPlaceholder(true);
-  };
-
-  // TODO: refactor this
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const callDbToUpdateTitle = useCallback(
-    debounce(async (newText) => {
-      await dbUpdateGroupName(groupId, newText);
-      dispatch(changeGroupName(groupId, newText));
-    }, 1000),
-    [],
-  );
-
-  const changeText = async (newText: string) => {
-    setText(newText);
-    setPlaceholder(false);
-
-    callDbToUpdateTitle(newText);
-  };
-
-  const removePlaceholder = () => {
-    if (!placeholder) return;
-
-    setText('');
-    setPlaceholder(false);
-  };
-
-  return (
-    <ContentEditable
-      className={placeholder ? 'opacity-30' : ''}
-      html={!placeholder ? text : placeholderText}
-      onChange={(event) => changeText(event.currentTarget.innerText)}
-      onBlur={(event) => changeTextToPlaceholder(event.currentTarget.innerText)}
-      onClick={() => removePlaceholder()}
-      tagName="h2"
-    />
-  );
-};
+const HeaderTitle = ({
+  title,
+  showPlaceholder,
+  changeText,
+  changeTextToPlaceholder,
+  removePlaceholder,
+}: HeaderTitleProps) => (
+  <ContentEditable
+    className={showPlaceholder ? 'opacity-30' : ''}
+    html={!showPlaceholder ? title : PLACEHOLDER_TEXT}
+    onChange={(event) => changeText(event.currentTarget.innerText)}
+    onBlur={(event) => changeTextToPlaceholder(event.currentTarget.innerText)}
+    onClick={() => removePlaceholder()}
+    tagName="h2"
+  />
+);
 
 export default HeaderTitle;

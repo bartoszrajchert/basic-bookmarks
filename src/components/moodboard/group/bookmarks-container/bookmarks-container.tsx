@@ -11,14 +11,14 @@ import { dbUpdateBookmarksOrder } from 'api/firebase';
 import { changeBookmarksOrder } from 'store/actions/groups/groups-actions';
 
 type BookmarksContainerProps = {
-  hideBookmarks: boolean;
+  showBookmarks: boolean;
   viewType: EViewType;
   bookmarks: TBookmarks;
   groupId: string;
 };
 
 const BookmarksContainer = ({
-  hideBookmarks,
+  showBookmarks,
   viewType,
   bookmarks,
   groupId,
@@ -51,7 +51,7 @@ const BookmarksContainer = ({
 
   return (
     <>
-      {!hideBookmarks ? (
+      {showBookmarks ? (
         <div ref={nodeRef} className="mt-16 flex flex-wrap gap-x-40 gap-y-24 transition-all">
           <DndContext
             collisionDetection={closestCenter}

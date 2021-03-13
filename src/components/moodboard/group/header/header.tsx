@@ -1,16 +1,13 @@
 import React from 'react';
 import { IconEye, IconLayoutGrid, IconLayoutList, IconMenu2, IconTrash } from '@tabler/icons';
-import { useDispatch } from 'react-redux';
-import HeaderTitle from 'components/moodboard/group/header/header-title';
 import EViewType from 'utilities/enums/collection';
-import { thunkDeleteGroup } from 'store/actions/groups/groups-thunk-actions';
 
 type HeaderProps = {
   collectionViewType: EViewType;
   onTypeChange: (type: EViewType) => void;
+  deleteGroup: () => void;
   toggleBookmarks: () => void;
-  name: string;
-  groupId: string;
+  groupTitleComponent: JSX.Element;
   draggableAttributes?: any;
   draggableListeners?: any;
 };
@@ -18,20 +15,14 @@ type HeaderProps = {
 const Header = ({
   collectionViewType,
   onTypeChange,
+  deleteGroup,
   toggleBookmarks,
-  name,
-  groupId,
+  groupTitleComponent,
   draggableAttributes,
   draggableListeners,
 }: HeaderProps) => {
-  const dispatch = useDispatch();
-
   const nextType: EViewType =
     collectionViewType === EViewType.small ? EViewType.large : EViewType.small;
-
-  const deleteGroup = async () => {
-    dispatch(thunkDeleteGroup(groupId));
-  };
 
   return (
     <>
@@ -43,9 +34,7 @@ const Header = ({
               ✨
             </span>
           </div>
-          <div className="ml-12">
-            <HeaderTitle groupId={groupId} name={name} />
-          </div>
+          <div className="ml-12">{groupTitleComponent}</div>
         </div>
         <button
           type="button"
