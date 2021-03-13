@@ -7,7 +7,7 @@ import SortableItem from 'components/common/dnd-kit/sortable-item';
 import { TGroupsObject, TOrder } from 'utilities/types/moodboard-types';
 import { setGroupsOrderAction } from 'store/actions/groups/order/groups-order-actions';
 import { dbSetGroupsOrder } from 'api/firebase';
-import Collection from 'components/moodboard/collection';
+import Group from 'components/moodboard/group';
 
 const Moodboard = () => {
   const [activeId, setActiveId] = useState('');
@@ -50,7 +50,7 @@ const Moodboard = () => {
       <SortableContext items={orderGroups} strategy={verticalListSortingStrategy}>
         {orderGroups.map((id) => (
           <SortableItem key={id} id={id}>
-            <Collection data={groups[id]} className={activeId === id ? 'opacity-40' : ''} />
+            <Group data={groups[id]} className={activeId === id ? 'opacity-40' : ''} />
           </SortableItem>
         ))}
       </SortableContext>
@@ -61,7 +61,7 @@ const Moodboard = () => {
         }}
       >
         {activeId || typeof getActiveGroup !== 'undefined' ? (
-          <Collection data={getActiveGroup} />
+          <Group data={getActiveGroup} />
         ) : null}
       </DragOverlay>
     </DndContext>

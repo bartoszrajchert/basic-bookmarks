@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconEye, IconLayoutGrid, IconLayoutList, IconMenu2, IconTrash } from '@tabler/icons';
 import { useDispatch } from 'react-redux';
-import HeaderTitle from 'components/moodboard/collection/header/header-title';
+import HeaderTitle from 'components/moodboard/group/header/header-title';
 import EViewType from 'utilities/enums/collection';
 import { thunkDeleteGroup } from 'store/actions/groups/groups-thunk-actions';
 

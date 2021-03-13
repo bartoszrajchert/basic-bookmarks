@@ -6,8 +6,8 @@ import {
 } from 'store/actions/groups/groups-actions';
 import { dbUpdateBookmarksVisibility, dbUpdateGroupView } from 'api/firebase';
 import { TGroup } from 'utilities/types/moodboard-types';
-import Header from 'components/moodboard/collection/header';
-import BookmarksContainer from 'components/moodboard/collection/bookmarks-container';
+import Header from 'components/moodboard/group/header';
+import BookmarksContainer from 'components/moodboard/group/bookmarks-container';
 import EViewType from 'utilities/enums/collection';
 
 type CollectionProps = {
@@ -17,7 +17,7 @@ type CollectionProps = {
   className?: string;
 };
 
-const Collection = ({ data, attributes, listeners, className }: CollectionProps) => {
+const Group = ({ data, attributes, listeners, className }: CollectionProps) => {
   const [viewType, setViewType] = useState(data.view);
   const [hideBookmarksState, setHideBookmarksState] = useState(!data.visible);
   const [name] = useState(data.name);
@@ -58,10 +58,10 @@ const Collection = ({ data, attributes, listeners, className }: CollectionProps)
   );
 };
 
-Collection.defaultProps = {
+Group.defaultProps = {
   attributes: [],
   listeners: [],
   className: '',
 };
 
-export default Collection;
+export default Group;
