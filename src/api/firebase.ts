@@ -106,3 +106,24 @@ export const dbUpdateBookmarksOrder = async (id: string, bookmarksIds: string[])
     .update({
       [`groups.${id}.bookmarks.order`]: bookmarksIds,
     });
+
+export const dbAddBookmark = async (
+  idGroup: string,
+  idBookmark: string,
+  name: string,
+): Promise<{ idGroup: string; bookmark: TBookmarkData }> => {
+  if (!uuidValidateV4(idBookmark)) {
+    throw Error('Do not change id!');
+  }
+
+  return firestore
+    .collection(dbConstants.groups)
+    .doc(userId)
+    .update({
+      [`groups.${idGroup}.bookmarks.data.${idBookmark}`]: createBookmarkDoc(idBookmark, name),
+    })
+    .then(() => ({
+      idGroup,
+      bookmark: createBookmarkDoc(idBookmark, name),
+    }));
+};

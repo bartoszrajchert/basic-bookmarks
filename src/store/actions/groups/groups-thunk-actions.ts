@@ -1,12 +1,21 @@
 import { v4 as uuidv4 } from 'uuid';
 import { TThunk } from 'utilities/types/redux-types';
-import { dbAddGroup, dbDeleteGroup, dbGetGroup, dbSetGroupsOrder } from 'api/firebase';
+import {
+  dbAddBookmark,
+  dbAddGroup,
+  dbDeleteGroup,
+  dbGetGroup,
+  dbSetGroupsOrder,
+  dbUpdateBookmarksOrder,
+} from 'api/firebase';
 import {
   addGroupToOrderAction,
   setGroupsOrderAction,
 } from 'store/actions/groups/order/groups-order-actions';
 import {
+  addBookmark,
   addGroupAction,
+  changeBookmarksOrder,
   deleteGroupAction,
   groupsFetchedAction,
 } from 'store/actions/groups/groups-actions';
@@ -52,4 +61,18 @@ export const asyncAddGroup = (): TThunk => async (dispatch, getState) =>
     dispatch(addGroupToOrderAction(newGroup.id));
 
     dbSetGroupsOrder([newGroup.id, ...order]);
+  });
+
+export const asyncAddBookmark = (idGroup: string, bookmarkName: string): TThunk => async (
+  dispatch,
+  getState,
+) =>
+  dbAddBookmark(idGroup, uuidv4(), bookmarkName).then((bookmarkData) => {
+    const { groups } = getState();
+    const newBookmarksOrder = [...groups[idGroup].bookmarks.order, bookmarkData.bookmark.id];
+
+    dispatch(addBookmark(idGroup, bookmarkData.bookmark));
+    dispatch(changeBookmarksOrder(idGroup, newBookmarksOrder));
+
+    dbUpdateBookmarksOrder(idGroup, newBookmarksOrder);
   });

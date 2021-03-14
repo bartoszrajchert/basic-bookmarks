@@ -9,6 +9,8 @@ import Bookmark from 'components/moodboard-container/group-container/bookmarks-c
 import EViewType from 'utilities/enums/collection';
 import { dbUpdateBookmarksOrder } from 'api/firebase';
 import { changeBookmarksOrder } from 'store/actions/groups/groups-actions';
+import { asyncAddBookmark } from 'store/actions/groups/groups-thunk-actions';
+import AddBookmarkButton from 'components/moodboard-container/group-container/bookmarks-container/add-bookmark-button';
 
 type BookmarksContainerProps = {
   showBookmarks: boolean;
@@ -49,6 +51,10 @@ const BookmarksContainer = ({
 
   const activeBookmark = bookmarks.data[activeId];
 
+  const addBookmark = () => {
+    dispatch(asyncAddBookmark(groupId, 'Twitter'));
+  };
+
   return (
     <>
       {showBookmarks ? (
@@ -69,6 +75,7 @@ const BookmarksContainer = ({
                 </SortableItem>
               ))}
             </SortableContext>
+            <AddBookmarkButton type={viewType} addBookmark={addBookmark} />
             <DragOverlay>
               {activeId ? <Bookmark type={viewType} data={activeBookmark} /> : null}
             </DragOverlay>

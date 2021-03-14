@@ -32,6 +32,11 @@ const groupsReducers = (state: TGroupsObject = {}, action: TAction<EGroupsAction
       newState[action.payload.id].bookmarks.order = action.payload.orders;
       return newState;
     }
+    case EGroupsActions.GROUP_ADD_BOOKMARK: {
+      newState[action.payload.idGroup].bookmarks.data[action.payload.newBookmark.id] =
+        action.payload.newBookmark;
+      return newState;
+    }
     default:
       return state;
   }

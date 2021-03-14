@@ -1,14 +1,12 @@
 import * as React from 'react';
+import { TablerIcon } from '@tabler/icons';
 
 type BookmarkIconProps = {
-  img: string;
-  alt: string;
+  iconElement: React.ReactElement<HTMLImageElement> | TablerIcon;
 };
 
-const BookmarkIcon = ({ img, alt }: BookmarkIconProps) => (
-  <div className="p-16 rounded-base bg-black-900">
-    <img src={img} alt={alt} height={40} width={40} />
-  </div>
+const BookmarkIcon = ({ iconElement }: BookmarkIconProps) => (
+  <div className="p-16 rounded-base bg-black-900">{iconElement}</div>
 );
 
 export default BookmarkIcon;

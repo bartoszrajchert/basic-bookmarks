@@ -2,6 +2,7 @@
     "scss",
     "typescript",
     "singlequote",
+    "notest",
     "functional",
     {
         "output": "src/components/"

@@ -1,17 +1,17 @@
-import { TBookmarkData } from 'utilities/types/moodboard-types';
 import BookmarkIcon from 'components/moodboard-container/group-container/bookmarks-container/bookmark/bookmark-icon';
-import facebook from 'assets/facebook.png';
 import * as React from 'react';
+import { TablerIcon } from '@tabler/icons';
 
 type SmallBookmarkProps = {
-  data: TBookmarkData;
+  name: string;
+  iconElement: React.ReactElement<HTMLImageElement> | TablerIcon;
 };
 
-const SmallBookmark = ({ data }: SmallBookmarkProps) => (
+const SmallBookmark = ({ name, iconElement }: SmallBookmarkProps) => (
   <div className="flex flex-col items-center cursor-pointer">
-    <BookmarkIcon img={facebook} alt="Facebook logo" />
+    <BookmarkIcon iconElement={iconElement} />
     <div className="mt-8">
-      <p className="text-sm">{data.name}</p>
+      <p className="text-sm">{name}</p>
     </div>
   </div>
 );
